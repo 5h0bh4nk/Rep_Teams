@@ -1,0 +1,42 @@
+.app-header-bar{
+    -webkit-app-region: drag;
+    -webkit-text-size-adjust: 100%;
+    background: #6264a7;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+}
+
+.app-top-power-bar {
+    margin: 0 auto;
+    position: relative;
+    -webkit-app-region: no-drag;
+    -webkit-user-select: none;
+}
+
+.app-top-power-bar .input-group {
+    display: block;
+    height: 3.2rem;
+    width: 100%;
+}
+
+.input-group {
+    position: relative;
+    display: table;
+    border-collapse: separate;
+    background-color: pink;
+    display: block;
+    height: 3.2rem;
+    width: 100%;
+    
+}
+
+.bg-custom-1 {
+    background-color: #85144b;
+  }
+  
+  .bg-custom-2 {
+  background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
+  }

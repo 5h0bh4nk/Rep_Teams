@@ -1,0 +1,10 @@
+.side-bar{
+    width: 70px;
+    height: 100vh;
+    background-color: rgb(232, 224, 253);
+}
+
+.span{
+    font-weight: 100;
+    font-size: 5px;
+}
