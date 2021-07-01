@@ -4,7 +4,7 @@ import SignButtons from '../SignButtons/SignButtons';
 import demo from '../../shared/images/demo.webp';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 
-function jumbotron() {
+function jumbotron(props) {
     return (
         <Grid fluid className="col-12">
             <Row className="flexbox row">
@@ -16,7 +16,9 @@ function jumbotron() {
                         <p className="c-heading-2">
                             Meet, chat, call, and collaborate in just one place.
                         </p>
-                        <SignButtons />
+
+                        {/* Rendering signin and signup */}
+                        <SignButtons auth = {props.auth} />
                     </div>
                 </Col>
                 <Col sm={12} md={6} className="flex-item col-12 col-md-6">

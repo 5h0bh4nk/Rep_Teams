@@ -1,17 +1,35 @@
-const express = require('express')
-const http = require('http')
-var cors = require('cors')
-const app = express()
-const bodyParser = require('body-parser')
-const path = require("path")
-var xss = require("xss")
+const express = require('express');
+const http = require('http');
+var cors = require('cors');
+const app = express();
+const bodyParser = require('body-parser');
+const path = require("path");
+var xss = require("xss");
+var passport = require('passport');
+var config = require('./config');
+const mongoose = require('mongoose');
 
-var server = http.createServer(app)
-var io = require('socket.io')(server)
+const url = config.mongoUrl;
+mongoose.connect(url, {
+        useCreateIndex: true,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+    })
+.then(() => console.log("Database connected..."))
+.catch((error) => console.log(error.message));
 
+var server = http.createServer(app);
+var io = require('socket.io')(server);
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+
+// maintaining cors ( cross origin resource sharing ) / vulnerabilty
 app.use(cors())
 app.use(bodyParser.json())
 
+
+// for serving production build
 if(process.env.NODE_ENV==='production'){
 	app.use(express.static(__dirname+"/build"))
 	app.get("*", (req, res) => {
@@ -20,16 +38,24 @@ if(process.env.NODE_ENV==='production'){
 }
 app.set('port', (process.env.PORT || 4001))
 
+// preventing xss attacks / vulnerability tag
 sanitizeString = (str) => {
 	return xss(str)
 }
 
+// connections are the peers joined to call on server
 connections = {}
+
+// messages across the room
 messages = {}
+
+
 timeOnline = {}
 
+// on a new connection addition
 io.on('connection', (socket) => {
 
+	// adding connection
 	socket.on('join-call', (path) => {
 		if(connections[path] === undefined){
 			connections[path] = []
@@ -109,6 +135,29 @@ io.on('connection', (socket) => {
 		}
 	})
 })
+
+app.use(passport.initialize());
+// app.use(passport.session());
+
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+	next(createError(404));
+  });
+  
+ // error handler
+app.use(function(err, req, res, next) {
+	// set locals, only providing error in development
+	res.locals.message = err.message;
+	res.locals.error = req.app.get('env') === 'development' ? err : {};
+  
+	// render the error page
+	res.status(err.status || 500);
+	res.json({ error: err });
+});
 
 server.listen(app.get('port'), () => {
 	console.log("listening on", app.get('port'))

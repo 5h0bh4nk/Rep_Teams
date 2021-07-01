@@ -2,11 +2,11 @@ import React from 'react'
 import Navbar from '../../Components/Navbar/Navbar';
 import Jtron from '../../Components/Jumbotron/jumbotron';
 
-function Homepage() {
+function Homepage(props) {
     return (
         <div>
             <Navbar />
-            <Jtron />
+            <Jtron auth={props.auth} />
         </div>
     )
 }
