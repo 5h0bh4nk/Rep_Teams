@@ -44,8 +44,8 @@
   },
   "scripts": {
     "dev": "concurrently -n 'server,client' -c 'red,green'  \"nodemon app.js\" \"NODE_ENV=dev PORT=8000 react-scripts start\"",
-    "server": "NODE_ENV=production nodemon app.js",
-    "start": "react-scripts start",
+    "start": "NODE_ENV=production nodemon app.js",
+    "client": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
