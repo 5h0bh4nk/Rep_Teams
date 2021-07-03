@@ -45,7 +45,6 @@ function Login(props) {
                 </Form>
                 </ModalBody>
                 <ModalFooter>
-                    
                     <Button color="secondary">Cancel</Button>
                 </ModalFooter>
             </Modal>

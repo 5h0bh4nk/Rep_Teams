@@ -15,7 +15,7 @@ mongoose.connect(url, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useFindAndModify: false,
-    })
+})
 .then(() => console.log("Database connected..."))
 .catch((error) => console.log(error.message));
 
