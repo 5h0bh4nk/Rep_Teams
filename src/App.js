@@ -10,8 +10,6 @@ import { BrowserRouter as Router, Switch, Route, Redirect, withRouter } from 're
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import { loginUser, logoutUser } from './redux/ActionCreators';
-import { Provider } from 'react-redux';
-import { ConfigureStore } from './redux/configureStore';
 
 const mapStateToProps = state => {
     return {

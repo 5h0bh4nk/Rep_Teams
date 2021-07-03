@@ -17,7 +17,6 @@ function SignButtons(props) {
 
     return (
         <div className="c-group links">
-            {props.auth.user}
             {
                 props.auth.isAuthenticated?
                 <h1> Hey , welcome to microsoft teams , {props.auth.username} </h1>
@@ -37,7 +36,7 @@ function SignButtons(props) {
             }
             {
                 (!props.auth.isAuthenticated)?
-                    <Login login={login} auth={props.auth} setLogin={setLogin} />
+                    <Login loginUser={props.loginUser} login={login} auth={props.auth} setLogin={setLogin} />
                     :
                     <div>
                         <div className="navbar-text mr-3">{props.auth.username}</div>

@@ -18,7 +18,7 @@ function jumbotron(props) {
                         </p>
 
                         {/* Rendering signin and signup */}
-                        <SignButtons auth = {props.auth} />
+                        <SignButtons auth={props.auth} loginUser={props.loginUser} />
                     </div>
                 </Col>
                 <Col sm={12} md={6} className="flex-item col-12 col-md-6">
