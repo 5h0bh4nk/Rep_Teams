@@ -8,7 +8,7 @@ function jumbotron(props) {
     return (
         <Grid fluid className="col-12">
             <Row className="flexbox row">
-                <Col md={6} className="flex-item">
+                <Col md={6} >
                     <div className="content">
                         <h1 className="c-heading-1">
                             Microsoft Teams
@@ -21,7 +21,7 @@ function jumbotron(props) {
                         <SignButtons auth={props.auth} loginUser={props.loginUser} logoutUser={props.logoutUser}/>
                     </div>
                 </Col>
-                <Col md={6} className="flex-item">
+                <Col md={6} >
                     <img width="100%" height="100%" src = {demo} alt="A family video call on Teams and the chat screen in Teams showing many conversations." />
                 </Col>
             </Row>
