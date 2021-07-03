@@ -17,7 +17,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => ({
 	loginUser: (creds) => dispatch(loginUser(creds)),
 	logoutUser: () => dispatch(logoutUser()),
-	alertFade: () => dispatch(alertFade()),
+	// alertFade: () => dispatch(alertFade()),
 });
 
 const AlertError = (props) => {
@@ -26,7 +26,7 @@ const AlertError = (props) => {
 	const onDismiss = () =>{ 
 		setVisible(false);
 		console.log(visible);
-		props.alertFade();
+		// props.alertFade();
 		setVisible(true);
 	}
   
@@ -67,7 +67,7 @@ class App extends Component {
 		return (
 			<div>
 				{
-					<AlertError err={this.props.auth.errMess} alertFade={this.props.alertFade}/>
+					<AlertError err={this.props.auth.errMess} />
 				}
 				<Router>
 					<TransitionGroup>
