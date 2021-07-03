@@ -16,18 +16,32 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => ({
 	loginUser: (creds) => dispatch(loginUser(creds)),
-	logoutUser: () => dispatch(logoutUser())
+	logoutUser: () => dispatch(logoutUser()),
+	alertFade: () => dispatch(alertFade()),
 });
+
+const AlertError = (props) => {
+	const [visible, setVisible] = useState(true);
+  
+	const onDismiss = () =>{ 
+		setVisible(false);
+		console.log(visible);
+		props.alertFade();
+		setVisible(true);
+	}
+  
+	if(!props.err){
+		return(<div></div>)
+	}
+	else return (
+	  <Alert color="info" isOpen={visible} toggle={onDismiss}>
+		{props.err}
+	  </Alert>
+	);
+}
 
 
 class App extends Component {
-	constructor(props){
-		super(props);
-		this.state = {
-			visible: true
-		};
-	}
-
 	render() {
 		const HomePage = () =>{
 			return(
@@ -50,19 +64,10 @@ class App extends Component {
 			)} />
 		);
 
-		const onDismiss = () => {
-			this.state.visible = !this.state.visible;
-		}
-
 		return (
 			<div>
 				{
-					(this.props.auth.errMess)?
-					<Alert color="info" isOpen={this.state.visible} toggle={onDismiss}>
-						I am an alert and I can be dismissed!
-				  	</Alert>
-					  :
-					null
+					<AlertError err={this.props.auth.errMess} alertFade={this.props.alertFade}/>
 				}
 				<Router>
 					<TransitionGroup>

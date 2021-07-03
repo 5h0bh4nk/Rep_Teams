@@ -51,6 +51,7 @@ export const loginUser = (creds) => (dispatch) => {
         if (response.success) {
             // If login was successful, set the token in local storage
             localStorage.setItem('token', response.token);
+            //dont save pass
             localStorage.setItem('creds', JSON.stringify(creds));
             console.log(response);
             // Dispatch the success action
@@ -85,4 +86,10 @@ export const logoutUser = () => (dispatch) => {
     localStorage.removeItem('creds');
     // dispatch(favoritesFailed("Error 401: Unauthorized"));
     dispatch(receiveLogout())
+}
+
+export const alertFade = () => {
+    return {
+      type: ActionTypes.ALERT_FADE
+    }
 }

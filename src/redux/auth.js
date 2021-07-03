@@ -42,6 +42,10 @@ export const Auth = (state = {
                 token: '',
                 user: null
             };
+        case ActionTypes.ALERT_FADE:
+            return {...state,
+                errMess: null        
+            };
         default:
             return state
     }

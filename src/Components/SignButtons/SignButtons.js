@@ -22,17 +22,22 @@ function SignButtons(props) {
                 props.auth.isAuthenticated?
                 <div>
                     <br /><br />
-                <h3> Hey , welcome to microsoft teams , {props.auth.user.username} </h3>
+                <h3> Welcome to microsoft teams &nbsp;
+                    <span>
+                     {props.auth.user.username} 
+                    </span>
+                </h3>
                 {/* <div className="navbar-text mr-3">{props.auth.user.username}</div> */}
-                <Button outline onClick={handleLogout}>
-                    <span className="fa fa-sign-out fa-lg"></span> Logout
-                    { 
-                        props.auth.isFetching ?
-                        <span className="fa fa-spinner fa-pulse fa-fw"></span>
-                        : null
-                    }
-                </Button>
-                <Link to="/dashboard">dashboard</Link>
+                    <Button outline onClick={handleLogout}>
+                        <span className="fa fa-sign-out fa-lg"></span> Logout
+                        { 
+                            props.auth.isFetching ?
+                            <span className="fa fa-spinner fa-pulse fa-fw"></span>
+                            : null
+                        }
+                    </Button>{'  '}
+                    <Link to="/dashboard" className="btn" style={{backgroundColor: '#4b53bc', color: 'white'}}>Go to dashboard</Link>
+                
                 </div>
                 :
                 <div>
@@ -56,7 +61,8 @@ function SignButtons(props) {
             {
                 (!props.auth.isAuthenticated && sign)?<Signup sign={sign} auth={props.auth} setSignin={setSignin} />:null
             }
-
+            <br />
+            <br />
         </div>
     )
 }

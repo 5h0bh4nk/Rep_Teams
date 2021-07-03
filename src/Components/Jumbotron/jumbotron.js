@@ -6,7 +6,7 @@ import { Grid, Row, Col } from 'react-flexbox-grid';
 
 function jumbotron(props) {
     return (
-        <Grid fluid className="col-12">
+        <Grid fluid>
             <Row className="flexbox row">
                 <Col md={6} >
                     <div className="content">
