@@ -7,7 +7,7 @@ function Homepage(props) {
     return (
         <div>
             <Navbar />
-            <Jtron auth={props.auth}  loginUser={props.loginUser}/>
+            <Jtron auth={props.auth}  loginUser={props.loginUser} logoutUser={props.logoutUser}/>
         </div>
     )
 }

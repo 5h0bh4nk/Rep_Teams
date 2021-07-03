@@ -9,7 +9,7 @@ var cors = require('./cors');
 
 /* GET users listing. */
 router.options('*', (req,res)=> {res.statusCode=200});
-router.get('/',  authenticate.verifyUser, authenticate.verifyAdmin, function(req, res, next) {
+router.get('/',cors.corsWithOptions,  authenticate.verifyUser, authenticate.verifyAdmin, function(req, res, next) {
     User.find({})
     .then((users)=>{
       res.statusCode=200;
@@ -50,7 +50,7 @@ router.post('/signup', function(req,res,next){
   });
 });
 
-router.post('/login', (req, res, next)=>{
+router.post('/login',cors.corsWithOptions, (req, res, next)=>{
 
   passport.authenticate('local', (err, user, info) =>{
     if(err)
@@ -99,7 +99,7 @@ router.get('/facebook/token', passport.authenticate('facebook-token'), (req, res
   }
 });
 
-router.get('/checkJWTToken',  (req,res)=>{
+router.get('/checkJWTToken',cors.cors,  (req,res)=>{
   passport.authenticate('jwt', {session: false}, (err,user,info)=>{
     if(err) return next(err);
 

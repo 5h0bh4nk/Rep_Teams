@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {Button} from 'reactstrap'
+import {Link} from 'react-router-dom'
 import './SignButtons.css'
 import Login from '../../Containers/Login/Login'
 import Signup from '../../Containers/Signup/Signup'
@@ -12,44 +13,46 @@ function SignButtons(props) {
     const toggleSign = () => setSignin(!sign);
 
     const handleLogout = () =>{
-
+        props.logoutUser();
     }
 
     return (
         <div className="c-group links">
             {
                 props.auth.isAuthenticated?
-                <h1> Hey , welcome to microsoft teams , {props.auth.username} </h1>
-                :   
+                <div>
+                    <br /><br />
+                <h3> Hey , welcome to microsoft teams , {props.auth.user.username} </h3>
+                {/* <div className="navbar-text mr-3">{props.auth.user.username}</div> */}
+                <Button outline onClick={handleLogout}>
+                    <span className="fa fa-sign-out fa-lg"></span> Logout
+                    { 
+                        props.auth.isFetching ?
+                        <span className="fa fa-spinner fa-pulse fa-fw"></span>
+                        : null
+                    }
+                </Button>
+                <Link to="/dashboard">dashboard</Link>
+                </div>
+                :
                 <div>
                     <div>
                         <Button onClick={toggleLog} className="c-button-up" target="_blank" >
-                            Sign up for free
+                            Sign in
                         </Button>
                     </div>
                     <div>
                         <Button onClick={toggleSign} className="c-button-in" target="_blank" >
-                            Sign in
+                            Sign up for free
                         </Button>
                     </div>
                 </div>
             }
             {
-                (!props.auth.isAuthenticated)?
+                (login && !props.auth.isAuthenticated)?
                     <Login loginUser={props.loginUser} login={login} auth={props.auth} setLogin={setLogin} />
-                    :
-                    <div>
-                        <div className="navbar-text mr-3">{props.auth.username}</div>
-                        <Button outline onClick={handleLogout}>
-                            <span className="fa fa-sign-out fa-lg"></span> Logout
-                            {/* { props.auth.isFetching ?
-                                <span className="fa fa-spinner fa-pulse fa-fw"></span>
-                                : null
-                            } */}
-                        </Button>
-                    </div>
+                :null
             }
-
             {
                 (!props.auth.isAuthenticated && sign)?<Signup sign={sign} auth={props.auth} setSignin={setSignin} />:null
             }

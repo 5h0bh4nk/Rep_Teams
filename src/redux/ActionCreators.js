@@ -34,7 +34,6 @@ export const loginUser = (creds) => (dispatch) => {
         body: JSON.stringify(creds)
     })
     .then(response => {
-        console.log("HELLO");
         if (response.ok) {
             return response;
         } else {

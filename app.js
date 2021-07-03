@@ -1,11 +1,11 @@
 const express = require('express');
 const http = require('http');
-var cors = require('cors');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require("path");
 var xss = require("xss");
 var passport = require('passport');
+const cors=require('cors');
 var config = require('./config');
 const mongoose = require('mongoose');
 

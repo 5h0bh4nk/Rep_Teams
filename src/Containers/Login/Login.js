@@ -8,51 +8,6 @@ function Login(props) {
     const [unmountOnClose, setUnmountOnClose] = useState(false);
     const [formdata, setformData] = useState({});
 
-    const loginUser = (creds) => (dispatch) => {
-    // We dispatch requestLogin to kickoff the call to the API
-    // dispatch(requestLogin(creds))
-
-    return fetch(baseUrl + 'users/login', {
-        method: 'POST',
-        headers: { 
-            'Content-Type':'application/json' 
-        },
-        body: JSON.stringify(creds)
-    })
-    .then(response => {
-        console.log("HELLO");
-        if (response.ok) {
-            return response;
-        } else {
-            var error = new Error('Error ' + response.status + ': ' + response.statusText);
-            error.response = response;
-            throw error;
-        }
-        },
-        error => {
-            throw error;
-        })
-    .then(response => response.json())
-    .then(response => {
-        console.log("HELLO2");
-        if (response.success) {
-            // If login was successful, set the token in local storage
-            localStorage.setItem('token', response.token);
-            localStorage.setItem('creds', JSON.stringify(creds));
-            console.log(response);
-            // Dispatch the success action
-            // dispatch(fetchFavorites());
-            // dispatch(receiveLogin(response));
-        }
-        else {
-            var error = new Error('Error ' + response.status);
-            error.response = response;
-            throw error;
-        }
-    })
-    .catch(error => )
-};
-
     const handleChange = (e) =>{
         //target ki name attr
         console.log(e.target.value);
@@ -75,16 +30,18 @@ function Login(props) {
             <Modal isOpen={props.login} toggle={toggleModal} className="login" unmountOnClose={unmountOnClose}>
                 <ModalHeader toggle={toggleModal}>Login</ModalHeader>
                 <ModalBody>
-                <Form onSubmit={handleLogin}>
+                <Form onSubmit={handleLogin} className="row">
                     <FormGroup>
-                    <Label for="email">username</Label>
-                        <Input type="text" name="username" onChange={handleChange} id="username" required={true} placeholder="Username" />
+                    <Label for="email" className="col-5 col-sm-12">username</Label>
+                        <Input className="col-7 col-sm-12" type="text" name="username" onChange={handleChange} id="username" required={true} placeholder="Username" />
                     </FormGroup>
                     <FormGroup>
-                        <Label for="password">Password</Label>
-                        <Input type="password" name="password" onChange={handleChange} id="password" required={true} placeholder="password" />
+                        <Label className="col-5 col-sm-12" for="password">Password</Label>
+                        <Input className="col-7 col-sm-12" type="password" name="password" onChange={handleChange} id="password" required={true} placeholder="password" />
                     </FormGroup>
+                    <FormGroup>
                     <Button type="submit" value="submit" color="primary">Login</Button>{' '}
+                    </FormGroup>
                 </Form>
                 </ModalBody>
                 <ModalFooter>

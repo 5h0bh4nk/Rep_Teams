@@ -1,12 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import Video from './Containers/Room/Video'
-import MakeRoom from './Containers/MeetStart/Home'
 import Home from './Containers/Homepage/Homepage';
-import Login from './Containers/Login/Login';
-import Signup from './Containers/Signup/Signup';
 import dashboard from './Containers/Dashboard/Dashboard';
 import { BrowserRouter as Router, Switch, Route, Redirect, withRouter } from 'react-router-dom';
-
+import { Alert } from 'reactstrap';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import { loginUser, logoutUser } from './redux/ActionCreators';
@@ -24,8 +21,14 @@ const mapDispatchToProps = (dispatch) => ({
 
 
 class App extends Component {
-	render() {
+	constructor(props){
+		super(props);
+		this.state = {
+			visible: true
+		};
+	}
 
+	render() {
 		const HomePage = () =>{
 			return(
 				<Home auth={this.props.auth} 
@@ -47,18 +50,27 @@ class App extends Component {
 			)} />
 		);
 
+		const onDismiss = () => {
+			this.state.visible = !this.state.visible;
+		}
+
 		return (
 			<div>
+				{
+					(this.props.auth.errMess)?
+					<Alert color="info" isOpen={this.state.visible} toggle={onDismiss}>
+						I am an alert and I can be dismissed!
+				  	</Alert>
+					  :
+					null
+				}
 				<Router>
 					<TransitionGroup>
 						<CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
 							<Switch>
-								<Route path="/room" exact component={MakeRoom} />
 								<Route exact path = "/home" component = {HomePage} />
-								{/* <Route exact path = "/login" component = {Login} />
-								<Route exact path = "/signup" component = {Signup} /> */}
 								<PrivateRoute exact path = "/dashboard" component = {dashboard} />
-								<Route path="/room/:url" component={Video} />
+								<PrivateRoute path="/room/:url" component={Video} />
 								<Redirect to="/home" />
 							</Switch>
 						</CSSTransition>
