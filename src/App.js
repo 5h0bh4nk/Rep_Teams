@@ -1,12 +1,13 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import Video from './Containers/Room/Video'
 import Home from './Containers/Homepage/Homepage';
-import dashboard from './Containers/Dashboard/Dashboard';
+import Dashboard from './Containers/Dashboard/Dashboard';
 import { BrowserRouter as Router, Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { Alert } from 'reactstrap';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import { loginUser, logoutUser } from './redux/ActionCreators';
+import {baseUrl} from './shared/basUrl';
 
 const mapStateToProps = state => {
     return {
@@ -42,6 +43,29 @@ const AlertError = (props) => {
 
 
 class App extends Component {
+
+	componentDidMount() {
+
+		if(this.props.auth.token)
+		fetch(baseUrl+'/checkJWT')
+			.then(response => response.json())
+			.then(data =>{
+				if(!data.sucess){
+					this.props.logoutUser();
+				}
+			});
+	}
+	componentDidUpdate() {
+		if(this.props.auth.token)
+		fetch(baseUrl+'/checkJWT')
+			.then(response => response.json())
+			.then(data =>{
+				if(!data.sucess){
+					this.props.logoutUser();
+				}
+			});
+	}
+
 	render() {
 		const HomePage = () =>{
 			return(
@@ -49,6 +73,18 @@ class App extends Component {
 					loginUser={this.props.loginUser} 
 					logoutUser={this.props.logoutUser} 
 				/>
+			);
+		}
+
+		const Mydashboard = () =>{
+			return(
+				<Dashboard auth = {this.props.auth} />
+			);
+		}
+
+		const MyRoom = () =>{
+			return(
+				<Video auth = {this.props.auth} />
 			);
 		}
 
@@ -74,8 +110,8 @@ class App extends Component {
 						<CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
 							<Switch>
 								<Route exact path = "/home" component = {HomePage} />
-								<PrivateRoute exact path = "/dashboard" component = {dashboard} />
-								<PrivateRoute path="/room/:url" component={Video} />
+								<PrivateRoute exact path = "/dashboard" component = {Mydashboard} />
+								<PrivateRoute path="/room/:url" component={MyRoom} />
 								<Redirect to="/home" />
 							</Switch>
 						</CSSTransition>

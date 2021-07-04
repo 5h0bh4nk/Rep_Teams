@@ -23,7 +23,7 @@ function SignButtons(props) {
                 <div>
                     <br /><br />
                 <h3> Welcome to microsoft teams &nbsp;
-                    <span>
+                    <span style={{color:'red'}}>
                      {props.auth.user.username} 
                     </span>
                 </h3>

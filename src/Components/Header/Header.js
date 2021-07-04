@@ -12,9 +12,9 @@ function Header() {
                     </Form>
                 </div>
             </div>
-            <Button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-4" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            {/* <Button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-4" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
-            </Button>
+            </Button> */}
             <div className="collapse navbar-collapse" id="navbar-list-4">
                 <ul className="navbar-nav">
                     <li className="nav-item dropdown">

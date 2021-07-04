@@ -73,6 +73,7 @@ router.post('/login',cors.corsWithOptions, (req, res, next)=>{
       res.statusCode=200;
       res.setHeader('Content-type','application/json');
       res.json({status: 'Succesully logged in !!',success: true, token: token});
+      return res.redirect('/dashboard');
     });
   }) (req,res,next);
 });

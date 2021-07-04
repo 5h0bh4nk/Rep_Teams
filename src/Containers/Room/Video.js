@@ -20,7 +20,7 @@ import Modal from 'react-bootstrap/Modal'
 import 'bootstrap/dist/css/bootstrap.css'
 import "./Video.css"
 
-const server_url = process.env.NODE_ENV === 'production' ? 'https://video.sebastienbiollo.com' : "http://localhost:4001"
+const server_url = process.env.NODE_ENV === 'production' ? 'https://shubh-meet.herokuapp.com/' : "http://localhost:4001"
 
 var connections = {}
 const peerConnectionConfig = {
@@ -150,6 +150,7 @@ class Video extends Component {
 				for (let id in connections) {
 					connections[id].addStream(window.localStream)
 
+					// eslint-disable-next-line no-loop-func
 					connections[id].createOffer().then((description) => {
 						connections[id].setLocalDescription(description)
 							.then(() => {
@@ -458,7 +459,7 @@ class Video extends Component {
 						<div style={{background: "white", width: "30%", height: "auto", padding: "20px", minWidth: "400px",
 								textAlign: "center", margin: "auto", marginTop: "50px", justifyContent: "center"}}>
 							<p style={{ margin: 0, fontWeight: "bold", paddingRight: "50px" }}>Set your username</p>
-							<Input placeholder="Username" value={this.state.username} onChange={e => this.handleUsername(e)} />
+							<Input placeholder="Username" value={this.props.auth.user.username} onChange={e => this.handleUsername(e)} />
 							<Button variant="contained" color="primary" onClick={this.connect} style={{ margin: "20px" }}>Connect</Button>
 						</div>
 

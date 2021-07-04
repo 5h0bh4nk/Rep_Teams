@@ -3,12 +3,12 @@ import Header from '../../Components/Header/Header';
 import Sidebar from '../../Components/SideBar/Sidebar'
 import Home from '../MeetStart/Home';
 
-function Dashboard() {
+function Dashboard(props) {
     return (
         <div>
             <Header />
             {/* <Sidebar /> */}
-            <Home />
+            <Home auth = {props.auth}/>
         </div>
     )
 }
