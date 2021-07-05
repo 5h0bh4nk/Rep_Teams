@@ -41,3 +41,14 @@
     transition-property: background-color,border-color,color;
     white-space: normal;
 }
+
+.errorDisplay{
+    padding: auto;
+    margin: 10px;
+    color: red;
+}
+
+.successDisplay{
+    color: green;
+}
+

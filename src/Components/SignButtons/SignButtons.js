@@ -23,27 +23,31 @@ function SignButtons(props) {
                 <div>
                     <br /><br />
                 <h3> Welcome to microsoft teams &nbsp;
-                    <span style={{color:'red'}}>
+                    <span color="purple">
                      {props.auth.user.username} 
                     </span>
                 </h3>
-                {/* <div className="navbar-text mr-3">{props.auth.user.username}</div> */}
-                    <Button outline onClick={handleLogout}>
-                        <span className="fa fa-sign-out fa-lg"></span> Logout
-                        { 
-                            props.auth.isFetching ?
-                            <span className="fa fa-spinner fa-pulse fa-fw"></span>
-                            : null
-                        }
-                    </Button>{'  '}
-                    <Link to="/dashboard" className="btn" style={{backgroundColor: '#4b53bc', color: 'white'}}>Go to dashboard</Link>
-                
+                <Button outline onClick={handleLogout}>
+                    <span className="fa fa-sign-out fa-lg"></span> Logout
+                    { 
+                        props.auth.isLoading ?
+                        <span className="fa fa-spinner fa-pulse fa-fw"></span>
+                        : null
+                    }
+                </Button>{'  '}
+                <Link to="/dashboard" className="btn" style={{backgroundColor: '#4b53bc', color: 'white'}}>Go to dashboard</Link>
+            
                 </div>
                 :
                 <div>
                     <div>
                         <Button onClick={toggleLog} className="c-button-up" target="_blank" >
-                            Sign in
+                        <span className="fa fa-sign-out fa-lg"></span> Sign in{' '}
+                        { 
+                            props.auth.isLoading ?
+                            <span className="fa fa-spinner fa-pulse fa-fw"></span>
+                            : null
+                        }
                         </Button>
                     </div>
                     <div>
@@ -51,6 +55,13 @@ function SignButtons(props) {
                             Sign up for free
                         </Button>
                     </div>
+                    {
+                        (props.auth.errMess)?
+                        <div className="errorDisplay">Invalid Credentials / Error Occured</div>
+                        : null
+                    }
+                    <div className="errorDisplay"></div>
+                    <div className="successDisplay"></div>
                 </div>
             }
             {
@@ -59,7 +70,8 @@ function SignButtons(props) {
                 :null
             }
             {
-                (!props.auth.isAuthenticated && sign)?<Signup sign={sign} auth={props.auth} setSignin={setSignin} />:null
+                (!props.auth.isAuthenticated && sign)?
+                    <Signup sign={sign} auth={props.auth} setSignin={setSignin} />:null
             }
             <br />
             <br />

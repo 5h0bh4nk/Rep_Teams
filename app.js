@@ -97,7 +97,7 @@ io.on('connection', (socket) => {
 			}
 		}
 
-		if(ok === true){
+		if(ok){
 			if(messages[key] === undefined){
 				messages[key] = []
 			}

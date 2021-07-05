@@ -246,10 +246,10 @@ class Video extends Component {
 		let width = ""
 		if(elms === 0 || elms === 1) {
 			width = "100%"
-			// height = "100%"
+			height = "50%"
 		} else if (elms === 2) {
 			width = "45%"
-			// height = "100%"
+			height = "50%"
 		} else if (elms === 3 || elms === 4) {
 			width = "35%"
 			height = "50%"
@@ -351,7 +351,7 @@ class Video extends Component {
 								.then(() => {
 									socket.emit('signal', id2, JSON.stringify({ 'sdp': connections[id2].localDescription }))
 								})
-								.catch(e => console.log(e))
+								.catch(e => console.error(e))
 						})
 					}
 				}
@@ -452,7 +452,8 @@ class Video extends Component {
 		}
 		return (
 			<div>
-				{this.state.askForUsername === true ?
+				{
+					this.state.askForUsername?
 					<div>
 						<div style={{background: "white", width: "30%", height: "auto", padding: "20px", minWidth: "400px",
 								textAlign: "center", margin: "auto", marginTop: "50px", justifyContent: "center"}}>
@@ -471,7 +472,7 @@ class Video extends Component {
 					<div>
 						<div className="btn-down" style={{ backgroundColor: "whitesmoke", color: "whitesmoke", textAlign: "center" }}>
 							<IconButton style={{ color: "#424242" }} onClick={this.handleVideo}>
-								{(this.state.video === true) ? <VideocamIcon /> : <VideocamOffIcon />}
+								{(this.state.video) ? <VideocamIcon /> : <VideocamOffIcon />}
 							</IconButton>
 
 							<IconButton style={{ color: "#f44336" }} onClick={this.handleEndCall}>
@@ -515,6 +516,7 @@ class Video extends Component {
 						<div className="container">
 							<div style={{ paddingTop: "20px" }}>
 								<Input value={window.location.href} disable="true"></Input>
+								// inline
 								<Button style={{backgroundColor: "#3f51b5",color: "whitesmoke",marginLeft: "20px",
 									marginTop: "10px",width: "120px",fontSize: "10px"
 								}} onClick={this.copyUrl}>Copy invite link</Button>
@@ -523,7 +525,8 @@ class Video extends Component {
 							<Row id="main" className="flex-container" style={{ margin: 0, padding: 0 }}>
 								<video id="my-video" ref={this.localVideoref} autoPlay muted style={{
 									borderStyle: "solid",borderColor: "#bdbdbd",margin: "10px",objectFit: "fill",
-									width: "100%"}}></video>
+									width: "100%"}}>
+								</video>
 							</Row>
 						</div>
 					</div>

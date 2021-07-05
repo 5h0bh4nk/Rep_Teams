@@ -21,27 +21,6 @@ const mapDispatchToProps = (dispatch) => ({
 	// alertFade: () => dispatch(alertFade()),
 });
 
-const AlertError = (props) => {
-	const [visible, setVisible] = useState(true);
-  
-	const onDismiss = () =>{ 
-		setVisible(false);
-		console.log(visible);
-		// props.alertFade();
-		setVisible(true);
-	}
-  
-	if(!props.err){
-		return(<div></div>)
-	}
-	else return (
-	  <Alert color="info" isOpen={visible} toggle={onDismiss}>
-		{props.err}
-	  </Alert>
-	);
-}
-
-
 class App extends Component {
 
 	componentDidMount() {
@@ -52,8 +31,8 @@ class App extends Component {
 			.then(data =>{
 				if(!data.sucess){
 					this.props.logoutUser();
-				}
-			});
+			}
+		});
 	}
 	componentDidUpdate() {
 		if(this.props.auth.token)
@@ -102,9 +81,6 @@ class App extends Component {
 
 		return (
 			<div>
-				{
-					<AlertError err={this.props.auth.errMess} />
-				}
 				<Router>
 					<TransitionGroup>
 						<CSSTransition key={this.props.location.key} classNames="page" timeout={300}>

@@ -7,7 +7,6 @@ function Dashboard(props) {
     return (
         <div>
             <Header />
-            {/* <Sidebar /> */}
             <Home auth = {props.auth}/>
         </div>
     )

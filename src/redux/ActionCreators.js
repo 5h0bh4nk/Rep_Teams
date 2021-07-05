@@ -61,6 +61,7 @@ export const loginUser = (creds) => (dispatch) => {
         else {
             var error = new Error('Error ' + response.status);
             error.response = response;
+            document.querySelector('.errorDisplay').innerHTML = "An error occured !!";
             throw error;
         }
     })

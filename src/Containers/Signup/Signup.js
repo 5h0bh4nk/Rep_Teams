@@ -17,24 +17,33 @@ function Signup(props) {
         return fetch(baseUrl+'users/signup', requestOptions)
         .then(response => response.json())
         .then(response => {
-                // If login was successful, set the token in local storage
-                console.log(response);
+            if(response.err){
+                document.querySelector('.registrationError').innerHTML= response.err.message;
+            }
+            else{
+                document.querySelector('.successDisplay').innerHTML = response.status;
+                document.querySelector('.errorDisplay').innerHTML = '';
+            }
         })
-        .catch(error => console.log(error));
+        .catch(error => console.error(error));
     }
 
     const handleChange = (e) =>{
-        console.log(e.target.value);
         setFormData({...formData, [e.target.name] : e.target.value});
     }
 
     const handleSignup = (event) =>{
         event.preventDefault();
-        toggleModal();
-        // alert(this.username.value);
-        console.log(formData);
-        RegisterUser(formData);
-        // dispatch(loginUser(formdata));
+        if(event.target.password.value.length <= 5){
+            document.querySelector('.registrationError').innerHTML = "Length of password must be greater than 5";
+        }
+        else if(event.target.password.value === event.target.cpassword.value){
+            RegisterUser(formData);
+            toggleModal();
+        }
+        else{
+            document.querySelector('.registrationError').innerHTML = "Both passwords dont match . Try again !";
+        }
     }
 
     const toggleModal = () => props.setSignin(!props.sign);
@@ -46,8 +55,8 @@ function Signup(props) {
                 <ModalBody>
                 <Form onSubmit={handleSignup} onChange={handleChange}>
                     <FormGroup>
-                        <Label className="col-5 col-sm-12" for="email">Email</Label>
-                        <Input className="col-7 col-sm-12" type="email" name="email" id="email" placeholder="Email" required={true}/>
+                        <Label className="col-5 col-sm-12" for="name">Name</Label>
+                        <Input className="col-7 col-sm-12" type="text" name="name" id="name" placeholder="Name" required={true}/>
                     </FormGroup>
                     <FormGroup>
                         <Label className="col-5 col-sm-12" for="username">Username</Label>
@@ -59,47 +68,14 @@ function Signup(props) {
                     </FormGroup>
                     <FormGroup>
                         <Label className="col-5 col-sm-12" for="confirmPassword">Confirm Password</Label>
-                        <Input className="col-7 col-sm-12" type="password" name="cpassword" id="cpassword" placeholder="confirm password" required={true}/>
+                        <Input className="col-7 col-sm-12" type="password" name="cpassword" id="cpassword" placeholder="Confirm password" required={true}/>
                     </FormGroup>
-                    <FormGroup>
-                        <Label className="col-5 col-sm-12" for="Age">Age</Label>
-                        <Input className="col-7 col-sm-12" type="number" name="age" id="age" required={true}>
-                        </Input>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label className="col-3 col-sm-12" for="exampleText">Bio</Label>
-                        <Input className="col-7 col-sm-12" type="textarea" name="text" id="exampleText" />
-                    </FormGroup>
-                    {/* <FormGroup>
-                        <Label for="exampleFile">File</Label>
-                        <Input type="file" name="file" id="exampleFile" />
-                        <FormText color="muted">
-                        This is some placeholder block-level help text for the above input.
-                        It's a bit lighter and easily wraps to a new line.
-                        </FormText>
-                    </FormGroup> */}
-                    <FormGroup tag="fieldset">
-                        <FormGroup check>
-                        <Label check>
-                            <Input type="checkbox" name="terms" required={true}/>{' '}
-                            I agree to T&C
-                        </Label>
-                        </FormGroup>
-                        <FormGroup check>
-                        <Label check>
-                            <Input type="checkbox" name="promotion" />{' '}
-                            I agree recieving mails from Microsoft 
-                        </Label>
-                        </FormGroup>
-                    </FormGroup>
-                    <Button color="primary" type="submit">Submit</Button>
+                    <Button color="primary" type="submit" className="c-button-up">Register</Button>
                 </Form>
                 </ModalBody>
-                <ModalFooter>
-                    
-                    <Button color="secondary" onClick={toggleModal}>Cancel</Button>
-                </ModalFooter>
+                <div className="registrationError"></div>
             </Modal>
+            
         </div>
     )
 }

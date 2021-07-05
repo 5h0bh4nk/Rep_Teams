@@ -27,8 +27,8 @@ router.post('/signup', function(req,res,next){
         res.json({err: err});
     }
     else{
-      if(req.body.firstname)
-        user.firstname = req.body.firstname;
+      if(req.body.name)
+        user.firstname = req.body.name;
       if(req.body.lastname)
         user.lastname = req.body.lastname;
 
@@ -43,7 +43,7 @@ router.post('/signup', function(req,res,next){
         
         res.statusCode=200;
         res.setHeader('Content-type','application/json');
-        res.json({status: 'Registration successfull',success: true});
+        res.json({status: 'Registration successfull !!',success: true});
       });
     });
     }
