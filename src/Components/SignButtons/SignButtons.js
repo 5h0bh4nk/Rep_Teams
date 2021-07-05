@@ -22,11 +22,13 @@ function SignButtons(props) {
                 props.auth.isAuthenticated?
                 <div>
                     <br /><br />
-                <h3> Welcome to microsoft teams &nbsp;
-                    <span color="purple">
-                     {props.auth.user.username} 
+                <h3 className="text-success"> Succesfully logged in as
+                    <span>
+                     {' '}
+                     { props.auth.user.username} 
                     </span>
                 </h3>
+                <br />
                 <Button outline onClick={handleLogout}>
                     <span className="fa fa-sign-out fa-lg"></span> Logout
                     { 

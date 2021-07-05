@@ -22,9 +22,20 @@ const server_url = process.env.NODE_ENV === 'production' ? 'https://shubh-meet.h
 
 var connections = {}
 const peerConnectionConfig = {
-	'iceServers': [
-		// { 'urls': 'stun:stun.services.mozilla.com' },
-		{ 'urls': 'stun:stun.l.google.com:19302' },
+	'iceServers': [{
+		urls: [ "stun:bn-turn1.xirsys.com" ]
+	 }, {
+		username: "igHRI0ItDbrX-wEflUG_qwtvG6MG6B90uNAWe_YM6xKYCv32g0I1GXQkeBP3aXYyAAAAAGDjYgBzaHViaDRuaw==",
+		credential: "f11c8b22-ddc9-11eb-bd8e-0242ac140004",
+		urls: [
+			"turn:bn-turn1.xirsys.com:80?transport=udp",
+			"turn:bn-turn1.xirsys.com:3478?transport=udp",
+			"turn:bn-turn1.xirsys.com:80?transport=tcp",
+			"turn:bn-turn1.xirsys.com:3478?transport=tcp",
+			"turns:bn-turn1.xirsys.com:443?transport=tcp",
+			"turns:bn-turn1.xirsys.com:5349?transport=tcp"
+		]
+	 }
 	]
 }
 var socket = null
@@ -455,9 +466,8 @@ class Video extends Component {
 				{
 					this.state.askForUsername?
 					<div>
-						<div style={{background: "white", width: "30%", height: "auto", padding: "20px", minWidth: "400px",
-								textAlign: "center", margin: "auto", marginTop: "50px", justifyContent: "center"}}>
-							<p style={{ margin: 0, fontWeight: "bold", paddingRight: "50px" }}>Set your username</p>
+						<div className="join-room-text">
+							<p>Set your username</p>
 							<Input placeholder="Username" value={this.props.auth.user.username} onChange={e => this.handleUsername(e)} />
 							<Button variant="contained" color="primary" onClick={this.connect} style={{ margin: "20px" }}>Connect</Button>
 						</div>

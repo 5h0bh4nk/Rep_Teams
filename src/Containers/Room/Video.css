@@ -42,3 +42,19 @@ video{
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
 }
+
+.join-room-text{
+    width: "30%";
+    height: "auto";
+    padding: "20px";
+    min-width: "400px";
+    text-align: "center";
+    margin: "auto";
+    margin-top: "50px";
+    justify-content: "center"
+}
+.join-room-text p{
+    margin: 0;
+    font-weight: "bold"; 
+    padding-right: "50px"
+}

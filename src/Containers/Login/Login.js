@@ -1,6 +1,6 @@
 import {React, useState} from 'react';
 import {useDispatch} from 'react-redux';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Form, FormGroup } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, Input, Label, Form, FormGroup } from 'reactstrap';
 import './Login.css'
 
 function Login(props) {
@@ -36,7 +36,7 @@ function Login(props) {
                             <Input className="col-7 col-sm-12" type="password" name="password" onChange={handleChange} id="password" required={true} placeholder="password" />
                         </FormGroup>
                         <FormGroup>
-                        <Button type="submit" value="submit" className="c-button-up small">Login</Button>{' '}
+                            <Button type="submit" value="submit" className="c-button-up small">Login</Button>{' '}
                         </FormGroup>
                     </Form>
                 </ModalBody>
