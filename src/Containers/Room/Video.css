@@ -37,3 +37,8 @@ body {
     width: 100%;
     height: auto;
 }
+
+video{
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}

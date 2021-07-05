@@ -24,7 +24,7 @@ function Home(props) {
 	return (
 		<div className="container2">
 			<div>
-				<h1 style={{ color:'#6264a7',fontSize: "45px" }}>
+				<h1 style={{ color:'#6264a7' }}>
 					Hello, {props.auth.user.username}
 				</h1>
 				<p style={{ fontWeight: "200" }}>
@@ -37,7 +37,7 @@ function Home(props) {
 				textAlign: "center", margin: "auto", marginTop: "100px"
 			}}>
 				<p style={{ margin: 0, fontWeight: "bold", paddingRight: "50px" }}>
-					Enter the room code , url or start a meeting now
+					Enter the room code , URL or start a meeting now
 				</p>
 				<Input placeholder="URL / room code" onChange={e => handleChange(e)} />
 				<Button variant="contained" color="primary" onClick={join} style={{ margin: "20px" }}>Go</Button>

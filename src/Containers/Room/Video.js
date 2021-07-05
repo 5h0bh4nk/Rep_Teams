@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import io from 'socket.io-client'
-import faker from "faker"
-
 import {IconButton, Badge, Input, Button} from '@material-ui/core'
 import VideocamIcon from '@material-ui/icons/Videocam'
 import VideocamOffIcon from '@material-ui/icons/VideocamOff'
@@ -52,7 +50,7 @@ class Video extends Component {
 			message: "",
 			newmessages: 0,
 			askForUsername: true,
-			username: faker.internet.userName(),
+			username: this.props.auth.user.username,
 		}
 		connections = {}
 
@@ -150,7 +148,6 @@ class Video extends Component {
 				for (let id in connections) {
 					connections[id].addStream(window.localStream)
 
-					// eslint-disable-next-line no-loop-func
 					connections[id].createOffer().then((description) => {
 						connections[id].setLocalDescription(description)
 							.then(() => {
@@ -187,6 +184,7 @@ class Video extends Component {
 
 			connections[id].addStream(window.localStream)
 
+			// eslint-disable-next-line no-loop-func
 			connections[id].createOffer().then((description) => {
 				connections[id].setLocalDescription(description)
 					.then(() => {
@@ -237,7 +235,7 @@ class Video extends Component {
 	}
 
 	changeCssVideos = (main) => {
-		let widthMain = main.offsetWidth
+		let widthMain = main.offsetwidth
 		let minWidth = "30%"
 		if ((widthMain * 30 / 100) < 300) {
 			minWidth = "300px"
@@ -248,10 +246,10 @@ class Video extends Component {
 		let width = ""
 		if(elms === 0 || elms === 1) {
 			width = "100%"
-			height = "100%"
+			// height = "100%"
 		} else if (elms === 2) {
 			width = "45%"
-			height = "100%"
+			// height = "100%"
 		} else if (elms === 3 || elms === 4) {
 			width = "35%"
 			height = "50%"
@@ -464,8 +462,9 @@ class Video extends Component {
 						</div>
 
 						<div style={{ justifyContent: "center", textAlign: "center", paddingTop: "40px" }}>
-							<video id="my-video" ref={this.localVideoref} autoPlay muted style={{
-								borderStyle: "solid",borderColor: "#bdbdbd",objectFit: "fill",width: "60%",height: "30%"}}></video>
+							<video id="my-video" ref={this.localVideoref} autoPlay muted 
+								style={{borderStyle: "solid",borderColor: "#bdbdbd",objectFit: "fill",width: "60%",height: "30%"}}>
+							</video>
 						</div>
 					</div>
 					:
@@ -524,7 +523,7 @@ class Video extends Component {
 							<Row id="main" className="flex-container" style={{ margin: 0, padding: 0 }}>
 								<video id="my-video" ref={this.localVideoref} autoPlay muted style={{
 									borderStyle: "solid",borderColor: "#bdbdbd",margin: "10px",objectFit: "fill",
-									width: "100%",height: "100%"}}></video>
+									width: "100%"}}></video>
 							</Row>
 						</div>
 					</div>
