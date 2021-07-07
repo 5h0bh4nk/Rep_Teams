@@ -13,8 +13,13 @@ function Home(props) {
 			window.location.href = `/room/${url}`
 		}
 		else if (url !== "") {
-			var roomCode = url.split("/")
-			window.location.href = `/room/${roomCode[roomCode.length-1]}`;
+			var room = url.split("/");
+			var roomCode = room[room.length-1];
+			if(roomCode.length !== 5){
+				document.getElementById('join-error').innerHTML = "Invalid URL / Room Code";
+			}
+			else
+			window.location.href = `/room/${roomCode}`;
 		} else {
 			// uuid can be used
 			var newurl = Math.random().toString(36).substring(2, 7)
@@ -33,11 +38,8 @@ function Home(props) {
 				</p>
 			</div>
 
-			<div style={{
-				background: "white", width: "30%", height: "auto", padding: "20px", minWidth: "400px",
-				textAlign: "center", margin: "auto", marginTop: "100px"
-			}}>
-				<p style={{ margin: 0, fontWeight: "bold", paddingRight: "50px" }}>
+			<div className="joinBox">
+				<p>
 					Enter the room code , paste the URL or start a meeting now
 				</p>
 				<Form onSubmit={joinRoom}>
@@ -50,6 +52,7 @@ function Home(props) {
 						<Button type="submit" value="submit" color="primary">Connect</Button>
 					</FormGroup>
 				</Form>
+				<div id="join-error"></div>
 			</div>
 		</div>
 	);
