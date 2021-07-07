@@ -2,6 +2,10 @@ const express = require('express');
 const http = require('http');
 const app = express();
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const User = require('./models/user');
+const Chat = require('./models/message');
+const Group = require('./models/groups');
 
 //to know the current room url
 const path = require("path");
@@ -9,7 +13,6 @@ var xss = require("xss");
 var passport = require('passport');
 const cors=require('cors');
 var config = require('./config');
-const mongoose = require('mongoose');
 
 const url = config.mongoUrl;
 mongoose.connect(url, {
@@ -50,24 +53,54 @@ const sanitizeString = (str) => {
 // connections are the unique rooms present on server
 var connections = {}
 
-// messages across the room
+// messages across the rooms
 var messages = {}
 
 
 var timeOnline = {}
 
-// socket io
+// socket io for handling messages of rooms
 io.on('connection', (socket) => {
 
 	// adding connection
-	socket.on('join-call', (path) => {
+	socket.on('join-call', (data) => {
+		const path = data.path.split("/");
+		const userId = data.userId;
+		const roomId = path[path.length-1];
+
+		// save group name to user data
+		User.findOne({username: userId})
+		.then((user)=>{
+			if(!user.groups.includes(roomId))
+			user.groups.push(roomId);
+			user.save();
+		})
+		.catch((err)=> console.error(err));
+
+		// make a group with roomId and push members
+		Group.findOne({groupId: roomId})
+		.then((group)=>{
+			if(!group){
+				Group.create({groupId: roomId})
+				.then((group)=>{
+					group.members.push(userId);
+					group.save();
+				})
+			}
+			else{
+				if(!group.members.includes(userId))
+				group.members.push(userId);
+				group.save();
+			}
+		})
+		.catch((err)=> console.error(err));
 
 		// make connections to current room
 		if(connections[path] === undefined){
 			connections[path] = []
 		}
 
-		// when someone joins call , push his socketID to the connection array
+		// when someone joins call , pushing his socketID to the connection array
 		connections[path].push(socket.id)
 
 		// store time online of that person
@@ -101,6 +134,7 @@ io.on('connection', (socket) => {
 
 		// sanitising input for security purpose
 		data = sanitizeString(data);
+		console.log("DATA", data)
 		sender = sanitizeString(sender);
 
 		var key;
@@ -124,7 +158,26 @@ io.on('connection', (socket) => {
 			if(messages[key] === undefined){
 				messages[key] = []
 			}
-			messages[key].push({"sender": sender, "data": data, "socket-id-sender": socket.id})
+
+			messages[key].push({"sender": sender, "data": data, "socket-id-sender": socket.id});
+			
+			// storing chat messages into the room
+			Chat.create({content: data, author: sender })
+			.then((chatMsg)=>{
+				const roomPath = key.split(",");
+				const roomId = roomPath[roomPath.length-1];
+				console.log("ROOM",roomId);
+				Group.findOne({groupId: roomId})
+				.then((group)=>{
+					group.messages.push(chatMsg);
+					group.save();
+				}, (err)=> console.error(err))
+				.catch((err)=> console.error(err));
+
+				chatMsg.save();
+			}, (err)=> console.error(err))
+			.catch((err)=> console.error(err));
+
 
 			// test purpose
 			if(process.env.NODE_ENV !== 'production')
@@ -178,7 +231,7 @@ app.use('/groups', groupsRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
 	next(createError(404));
-  });
+});
   
  // error handler
 app.use(function(err, req, res, next) {

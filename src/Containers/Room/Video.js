@@ -13,8 +13,6 @@ import Header from '../../Components/Header/Header'
 
 import { message } from 'antd'
 import 'antd/dist/antd.css'
-
-import { Row } from 'reactstrap'
 import Modal from 'react-bootstrap/Modal'
 import 'bootstrap/dist/css/bootstrap.css'
 import "./Video.css"
@@ -43,6 +41,7 @@ const peerConnectionConfig = {
 	 }
 	]
 }
+
 var socket = null
 var socketId = null
 var elms = 0
@@ -63,7 +62,7 @@ class Video extends Component {
 			showModal: false,
 			screenAvailable: false,
 			messages: [],
-			message: "",
+			messa0ge: "",
 			newmessages: 0,
 			askForUsername: true,
 			username: this.props.auth.user.username,
@@ -84,9 +83,9 @@ class Video extends Component {
 				.catch(() => this.audioAvailable = false)
 
 			if (navigator.mediaDevices.getDisplayMedia) {
-				this.setState({...this.state, screenAvailable: true })
+				this.setState({ screenAvailable: true })
 			} else {
-				this.setState({...this.state, screenAvailable: false })
+				this.setState({ screenAvailable: false })
 			}
 
 			/// webrtc usage
@@ -114,6 +113,7 @@ class Video extends Component {
 	}
 
 	getUserMedia = () => {
+		// get media ( audio and video ) if the browser is allowed permissions
 		if ((this.state.video && this.videoAvailable) || (this.state.audio && this.audioAvailable)) {
 			navigator.mediaDevices.getUserMedia({ video: this.state.video, audio: this.state.audio })
 				.then(this.getUserMediaSuccess)
@@ -121,6 +121,7 @@ class Video extends Component {
 				.catch((e) => console.log(e))
 		} else {
 			try {
+				// else stop all tracks
 				let tracks = this.localVideoref.current.srcObject.getTracks()
 				tracks.forEach(track => track.stop())
 			} catch (e) {}
@@ -294,7 +295,7 @@ class Video extends Component {
 		socket.on('signal', this.gotMessageFromServer)
 
 		socket.on('connect', () => {
-			socket.emit('join-call', window.location.href)
+			socket.emit('join-call', {path: window.location.href, userId: this.props.auth.user.username})
 			socketId = socket.id
 
 			socket.on('chat-message', this.addMessage)
@@ -483,7 +484,6 @@ class Video extends Component {
 					this.state.askForUsername?
 					<div>
 						<div className="join-room-text">
-							<p>Set your username</p>
 							<Input placeholder="Username" value={this.props.auth.user.username} onChange={e => this.handleUsername(e)} />
 							<Button variant="contained" color="primary" onClick={this.connect} style={{ margin: "20px" }}>Connect</Button>
 						</div>
@@ -535,15 +535,15 @@ class Video extends Component {
 								)) : <p>No message yet</p>}
 							</Modal.Body>
 							<Modal.Footer className="div-send-msg">
-								<Input placeholder="Message" value={this.state.message} onChange={e => this.handleMessage(e)} onKeyPress={this.onKeyUp}/>
+								<Input placeholder="Message" value={this.state.message} onChange={e => this.handleMessage(e)}/>
 								<Button variant="contained" color="primary" onClick={this.sendMessage}>Send</Button>
 							</Modal.Footer>
 						</Modal>
 
 						<div className="container">
 							<div className="room-link">
-								<TextField value={window.location.href} disable="true"></TextField><br />
-								<Button variant="contained" className="copybtn" onClick={this.copyUrl}>Copy invite link</Button>
+								{/* <TextField value={window.location.href} disable="true"></TextField><br /> */}
+								<Button variant="outlined" color="primary" className="copybtn" onClick={this.copyUrl}>Copy invite link</Button>
 							</div>
 							<div id="main" className="flex-container" style={{ margin: 0, padding: 0 }}>
 								<video id="my-video" ref={this.localVideoref} autoPlay muted>

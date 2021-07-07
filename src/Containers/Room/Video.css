@@ -83,10 +83,7 @@ video {
 }
 
 .copybtn{
-    margin-left: 20px;
-    margin-top: 10px;
-    width: "120px";
-    font-size: "10px";
+    margin: 10px;
 }
 
 #my-video{

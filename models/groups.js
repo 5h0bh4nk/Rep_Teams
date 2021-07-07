@@ -1,29 +1,21 @@
 var mongoose = require('mongoose');
 
 var chatSchema = new mongoose.Schema({
-    groupName: {
+    groupId: {
         type: String,
         required: true
     },
-    members: [
-        {
-            user: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "User"
-            }
-        }
-    ],
+    members: [{
+        type: String
+    }],
     messages: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Message"
         }
-    ],
-    lastUpdate: Date,
-    created: {
-        type: Date,
-        default: Date.now()
-    }
+    ]
+},{
+    timestamps: true
 });
 
 module.exports = mongoose.model('Chat', chatSchema);

@@ -15,8 +15,7 @@ var User = new Schema({
     },
     // groups to which a person is connected
     groups:[{
-        type: Schema.Types.ObjectId,
-        ref: 'Chat'
+        type: String
     }]
 });
 

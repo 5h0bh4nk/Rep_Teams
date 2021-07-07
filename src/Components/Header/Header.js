@@ -10,10 +10,6 @@ import {
     Nav,
     NavItem,
     NavLink,
-    // UncontrolledDropdown,
-    // DropdownToggle,
-    // DropdownMenu,
-    // DropdownItem,
     NavbarText
   } from 'reactstrap';
 import logo from '../../shared/images/logo-white.png';

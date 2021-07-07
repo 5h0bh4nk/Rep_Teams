@@ -2,20 +2,16 @@ var mongoose = require('mongoose');
 
 //Define the schema for our comments
 var messageSchema = new mongoose.Schema({
-    content: String,
+    content: {
+        type: String
+    },
     //The author parameter is linked with the user collection, getting his id and username
     author: {
-        id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
-        },
-        username: String,
+        type: String,
     },
+},{
     //Automatically gets the date of creation of the comment
-    created: {
-        type: Date,
-        default: Date.now()
-    }
+    timestamps: true
 });
 
 //Exports our messageSchema with Message as a reference, this reference will be used in other models
