@@ -1,5 +1,4 @@
 var express = require('express');
-var bodyParser = require('body-parser');
 var User = require('../models/user');
 var router = express.Router();
 var passport = require('passport');
@@ -29,8 +28,6 @@ router.post('/signup', function(req,res,next){
     else{
       if(req.body.name)
         user.firstname = req.body.name;
-      if(req.body.lastname)
-        user.lastname = req.body.lastname;
 
       user.save((err, user) => {
         if(err){

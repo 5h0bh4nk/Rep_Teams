@@ -2,6 +2,8 @@ const express = require('express');
 const http = require('http');
 const app = express();
 const bodyParser = require('body-parser');
+
+//to know the current room url
 const path = require("path");
 var xss = require("xss");
 var passport = require('passport');
@@ -21,8 +23,10 @@ mongoose.connect(url, {
 
 var server = http.createServer(app);
 var io = require('socket.io')(server);
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var groupsRouter = require('./routes/groupsRouter');
 
 // maintaining cors ( cross origin resource sharing ) / vulnerabilty
 app.use(cors())
@@ -39,80 +43,106 @@ if(process.env.NODE_ENV==='production'){
 app.set('port', (process.env.PORT || 4001))
 
 // preventing xss attacks / vulnerability tag
-sanitizeString = (str) => {
+const sanitizeString = (str) => {
 	return xss(str)
 }
 
-// connections are the peers joined to call on server
-connections = {}
+// connections are the unique rooms present on server
+var connections = {}
 
 // messages across the room
-messages = {}
+var messages = {}
 
 
-timeOnline = {}
+var timeOnline = {}
 
-// on a new connection addition
+// socket io
 io.on('connection', (socket) => {
 
 	// adding connection
 	socket.on('join-call', (path) => {
+
+		// make connections to current room
 		if(connections[path] === undefined){
 			connections[path] = []
 		}
+
+		// when someone joins call , push his socketID to the connection array
 		connections[path].push(socket.id)
 
+		// store time online of that person
 		timeOnline[socket.id] = new Date()
 
-		for(let a = 0; a < connections[path].length; ++a){
-			io.to(connections[path][a]).emit("user-joined", socket.id, connections[path])
+		// emit the person joined to all other connections present on the call
+		for(let i = 0; i < connections[path].length; ++i){
+			io.to(connections[path][i]).emit('user-joined', socket.id, connections[path])
 		}
 
+		// render all the messages that already have already been messaged by people in room
 		if(messages[path] !== undefined){
-			for(let a = 0; a < messages[path].length; ++a){
-				io.to(socket.id).emit("chat-message", messages[path][a]['data'], 
-					messages[path][a]['sender'], messages[path][a]['socket-id-sender'])
+			for(let i = 0; i < messages[path].length; ++i){
+				io.to(socket.id).emit('chat-message', messages[path][i]['data'], 
+					messages[path][i]['sender'], messages[path][i]['socket-id-sender'])
 			}
 		}
 
+		//test purpose
+		if(process.env.NODE_ENV !== 'production')
 		console.log(path, connections[path])
 	})
 
+	// on signal incoming
 	socket.on('signal', (toId, message) => {
 		io.to(toId).emit('signal', socket.id, message)
 	})
 
+	// on sending of a chat message
 	socket.on('chat-message', (data, sender) => {
-		data = sanitizeString(data)
-		sender = sanitizeString(sender)
 
-		var key
-		var ok = false
+		// sanitising input for security purpose
+		data = sanitizeString(data);
+		sender = sanitizeString(sender);
+
+		var key;
+		var ok = false;
+
+		// finding from all the rooms present on web
+		// k is the room key and v are the peers prsent the 
 		for (const [k, v] of Object.entries(connections)) {
 			for(let a = 0; a < v.length; ++a){
 				if(v[a] === socket.id){
 					key = k
 					ok = true
+					break;
 				}
 			}
+			if(ok) break;
 		}
-
+		
+		// sending message if present on server room
 		if(ok){
 			if(messages[key] === undefined){
 				messages[key] = []
 			}
 			messages[key].push({"sender": sender, "data": data, "socket-id-sender": socket.id})
-			console.log("message", key, ":", sender, data)
 
+			// test purpose
+			if(process.env.NODE_ENV !== 'production')
+			console.log("message", key, ":", sender, data)
+			
+			// emitting message to all in the room
 			for(let a = 0; a < connections[key].length; ++a){
 				io.to(connections[key][a]).emit("chat-message", data, sender, socket.id)
 			}
 		}
 	})
 
+	// on disconnection of user
 	socket.on('disconnect', () => {
-		var diffTime = Math.abs(timeOnline[socket.id] - new Date())
-		var key
+		var diffTime = Math.abs(timeOnline[socket.id] - new Date());
+		var key;
+
+		// finding the room 
 		for (const [k, v] of JSON.parse(JSON.stringify(Object.entries(connections)))) {
 			for(let a = 0; a < v.length; ++a){
 				if(v[a] === socket.id){
@@ -121,15 +151,17 @@ io.on('connection', (socket) => {
 					for(let a = 0; a < connections[key].length; ++a){
 						io.to(connections[key][a]).emit("user-left", socket.id)
 					}
-			
-					var index = connections[key].indexOf(socket.id)
-					connections[key].splice(index, 1)
+					
+					// removing the socketID
+					var index = connections[key].indexOf(socket.id);
+					connections[key].splice(index, 1);
 
 					console.log(key, socket.id, Math.ceil(diffTime / 1000))
 
 					if(connections[key].length === 0){
 						delete connections[key]
 					}
+					break;
 				}
 			}
 		}
@@ -137,10 +169,10 @@ io.on('connection', (socket) => {
 })
 
 app.use(passport.initialize());
-// app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/groups', groupsRouter);
 
 
 // catch 404 and forward to error handler

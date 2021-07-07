@@ -5,8 +5,9 @@ body {
 .flex-container {
     height: calc(100% - 150px);
     width: 100%;
-    /* margin: 0 auto; */
+    margin: 0 auto;
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     align-items: center;
     justify-content: center;
@@ -36,25 +37,84 @@ body {
     bottom: 0px;
     width: 100%;
     height: auto;
+    background-color: #9285ff75;
+    color: "whitesmoke";
+    text-align: "center";
 }
 
-video{
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
-}
-
+video {
+    height: 300px;
+    border-radius: 1rem;
+    margin: 0.5rem;
+    width: 400px;
+    /* object-fit: cover; */
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+  }
+  
 .join-room-text{
     width: "30%";
     height: "auto";
     padding: "20px";
     min-width: "400px";
     text-align: "center";
+    /* align-items: "center";
+    justify-content: center; */
     margin: "auto";
     margin-top: "50px";
     justify-content: "center"
 }
+
 .join-room-text p{
     margin: 0;
     font-weight: "bold"; 
-    padding-right: "50px"
+    padding-right: "50px";
+    align-items: "center";
+    justify-content: center;
+}
+
+.join-room-text input{
+    width: max-content;
+    align-items: "center";
+    justify-content: center;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.copybtn{
+    margin-left: 20px;
+    margin-top: 10px;
+    width: "120px";
+    font-size: "10px";
+}
+
+#my-video{
+    border-style: solid;
+    border-color: violet;
+    margin: 10px;
+    object-fit: fill;
+    /* width: 100%;
+    height: 100%;
+    display: flex;*/
+}
+
+.uncompatible{
+    background: "white";
+    width: "30%";
+    height: "auto";
+    padding: "20px"; 
+    min-width: "400px";
+    text-align: "center";
+    margin: "auto";
+    margin-top: "50px";
+    justify-content: "center"
+}
+
+.ibtn{
+    color: #000000;
+}
+
+.ibtn-danger{
+    color: red;
 }

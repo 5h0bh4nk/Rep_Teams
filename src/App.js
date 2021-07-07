@@ -57,7 +57,7 @@ class App extends Component {
 
 		const Mydashboard = () =>{
 			return(
-				<Dashboard auth = {this.props.auth} />
+				<Dashboard logoutUser = {this.props.logoutUser} auth = {this.props.auth} />
 			);
 		}
 
@@ -87,7 +87,7 @@ class App extends Component {
 							<Switch>
 								<Route exact path = "/home" component = {HomePage} />
 								<PrivateRoute exact path = "/dashboard" component = {Mydashboard} />
-								<PrivateRoute path="/room/:url" component={MyRoom} />
+								<PrivateRoute path="/room/:url" component={MyRoom}  />
 								<Redirect to="/home" />
 							</Switch>
 						</CSSTransition>

@@ -7,11 +7,17 @@ var User = new Schema({
         type: String,
         default:''
     },
+    // to intergrate facebook auth2.O
     facebookId: String,
     admin: {
         type: Boolean,
         default: false
-    }
+    },
+    // groups to which a person is connected
+    groups:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Chat'
+    }]
 });
 
 User.plugin(passportLocalMongoose);

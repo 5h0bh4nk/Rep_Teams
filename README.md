@@ -7,6 +7,7 @@
 - Everyting is peer-to-peer (using mesh method)
 - smooth UI and UX setup
 - more to be added soon
+- chat support for people who get late also
 
 ### Local setup
 

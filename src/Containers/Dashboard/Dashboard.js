@@ -6,7 +6,7 @@ import Home from '../MeetStart/Home';
 function Dashboard(props) {
     return (
         <div>
-            <Header />
+            <Header logoutUser = {props.logoutUser} auth = {props.auth} />
             <Home auth = {props.auth}/>
         </div>
     )

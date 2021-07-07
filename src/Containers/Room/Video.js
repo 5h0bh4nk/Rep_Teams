@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import io from 'socket.io-client'
-import {IconButton, Badge, Input, Button} from '@material-ui/core'
+import {IconButton, Badge, Input, Button, TextField} from '@material-ui/core'
 import VideocamIcon from '@material-ui/icons/Videocam'
 import VideocamOffIcon from '@material-ui/icons/VideocamOff'
 import MicIcon from '@material-ui/icons/Mic'
@@ -9,6 +9,7 @@ import ScreenShareIcon from '@material-ui/icons/ScreenShare'
 import StopScreenShareIcon from '@material-ui/icons/StopScreenShare'
 import CallEndIcon from '@material-ui/icons/CallEnd'
 import ChatIcon from '@material-ui/icons/Chat'
+import Header from '../../Components/Header/Header'
 
 import { message } from 'antd'
 import 'antd/dist/antd.css'
@@ -22,7 +23,11 @@ const server_url = process.env.NODE_ENV === 'production' ? 'https://shubh-meet.h
 
 var connections = {}
 const peerConnectionConfig = {
-	'iceServers': [{
+	'iceServers': [
+	 {
+		urls: [ "stun:stun.l.google.com:19302" ]
+	 },
+	 {
 		urls: [ "stun:bn-turn1.xirsys.com" ]
 	 }, {
 		username: "igHRI0ItDbrX-wEflUG_qwtvG6MG6B90uNAWe_YM6xKYCv32g0I1GXQkeBP3aXYyAAAAAGDjYgBzaHViaDRuaw==",
@@ -79,11 +84,12 @@ class Video extends Component {
 				.catch(() => this.audioAvailable = false)
 
 			if (navigator.mediaDevices.getDisplayMedia) {
-				this.setState({ screenAvailable: true })
+				this.setState({...this.state, screenAvailable: true })
 			} else {
-				this.setState({ screenAvailable: false })
+				this.setState({...this.state, screenAvailable: false })
 			}
 
+			/// webrtc usage
 			if (this.videoAvailable || this.audioAvailable) {
 				navigator.mediaDevices.getUserMedia({ video: this.videoAvailable, audio: this.audioAvailable })
 					.then((stream) => {
@@ -91,18 +97,19 @@ class Video extends Component {
 						this.localVideoref.current.srcObject = stream
 					})
 					.then((stream) => {})
-					.catch((e) => console.log(e))
+					.catch((e) => console.error(e))
 			}
-		} catch(e) { console.log(e) }
+		} catch(e) { console.error(e) }
 	}
 
 	getMedia = () => {
 		this.setState({
+			...this.state,
 			video: this.videoAvailable,
 			audio: this.audioAvailable
 		}, () => {
-			this.getUserMedia()
-			this.connectToSocketServer()
+			this.getUserMedia();
+			this.connectToSocketServer();
 		})
 	}
 
@@ -171,6 +178,8 @@ class Video extends Component {
 		})
 	}
 
+
+	/// check
 	getDislayMedia = () => {
 		if (this.state.screen) {
 			if (navigator.mediaDevices.getDisplayMedia) {
@@ -191,9 +200,9 @@ class Video extends Component {
 		this.localVideoref.current.srcObject = stream
 
 		for (let id in connections) {
-			if (id === socketId) continue
+			if (id === socketId) continue;
 
-			connections[id].addStream(window.localStream)
+			connections[id].addStream(window.localStream);
 
 			// eslint-disable-next-line no-loop-func
 			connections[id].createOffer().then((description) => {
@@ -256,8 +265,8 @@ class Video extends Component {
 		let height = String(100 / elms) + "%"
 		let width = ""
 		if(elms === 0 || elms === 1) {
-			width = "100%"
-			height = "50%"
+			width = "400px"
+			height = "300px"
 		} else if (elms === 2) {
 			width = "45%"
 			height = "50%"
@@ -400,7 +409,6 @@ class Video extends Component {
 	openChat = () => this.setState({ showModal: true, newmessages: 0 })
 	closeChat = () => this.setState({ showModal: false })
 	handleMessage = (e) => this.setState({ message: e.target.value })
-
 	addMessage = (data, sender, socketIdSender) => {
 		this.setState(prevState => ({
 			messages: [...prevState.messages, { "sender": sender, "data": data }],
@@ -413,6 +421,7 @@ class Video extends Component {
 	handleUsername = (e) => this.setState({ username: e.target.value })
 
 	sendMessage = () => {
+		if(this.state.message==="") return;
 		socket.emit('chat-message', this.state.message, this.state.username)
 		this.setState({ message: "", sender: this.state.username })
 	}
@@ -452,17 +461,24 @@ class Video extends Component {
 		return matchChrome !== null
 	}
 
+	onKeyUp(event) {
+		if (event.charCode === 13) {
+		  this.sendMessage();
+		}
+		else this.handleMessage();
+	}
+
 	render() {
 		if(this.isChrome() === false){
 			return (
-				<div style={{background: "white", width: "30%", height: "auto", padding: "20px", minWidth: "400px",
-						textAlign: "center", margin: "auto", marginTop: "50px", justifyContent: "center"}}>
+				<div class="uncompatible">
 					<h1>Sorry, this works only with Google Chrome</h1>
 				</div>
 			)
 		}
 		return (
 			<div>
+				<Header logoutUser = {this.props.logoutUser} auth = {this.props.auth} />
 				{
 					this.state.askForUsername?
 					<div>
@@ -472,35 +488,36 @@ class Video extends Component {
 							<Button variant="contained" color="primary" onClick={this.connect} style={{ margin: "20px" }}>Connect</Button>
 						</div>
 
-						<div style={{ justifyContent: "center", textAlign: "center", paddingTop: "40px" }}>
-							<video id="my-video" ref={this.localVideoref} autoPlay muted 
-								style={{borderStyle: "solid",borderColor: "#bdbdbd",objectFit: "fill",width: "60%",height: "30%"}}>
+						<div >
+							<video id="my-video" ref={this.localVideoref} autoPlay muted >
 							</video>
 						</div>
 					</div>
 					:
 					<div>
-						<div className="btn-down" style={{ backgroundColor: "whitesmoke", color: "whitesmoke", textAlign: "center" }}>
-							<IconButton style={{ color: "#424242" }} onClick={this.handleVideo}>
+						<div className="btn-down">
+							<IconButton className="ibtn" onClick={this.handleVideo}>
 								{(this.state.video) ? <VideocamIcon /> : <VideocamOffIcon />}
 							</IconButton>
 
-							<IconButton style={{ color: "#f44336" }} onClick={this.handleEndCall}>
+							<IconButton className="ibtn-danger" onClick={this.handleEndCall}>
 								<CallEndIcon />
 							</IconButton>
 
-							<IconButton style={{ color: "#424242" }} onClick={this.handleAudio}>
-								{this.state.audio === true ? <MicIcon /> : <MicOffIcon />}
+							<IconButton className="ibtn" onClick={this.handleAudio}>
+								{this.state.audio  ? <MicIcon /> : <MicOffIcon />}
 							</IconButton>
 
-							{this.state.screenAvailable === true ?
-								<IconButton style={{ color: "#424242" }} onClick={this.handleScreen}>
-									{this.state.screen === true ? <ScreenShareIcon /> : <StopScreenShareIcon />}
+							{
+								this.state.screenAvailable  ?
+								<IconButton className="ibtn" onClick={this.handleScreen}>
+									{this.state.screen  ? <ScreenShareIcon /> : <StopScreenShareIcon />}
 								</IconButton>
-								: null}
+								: null
+							}
 
 							<Badge badgeContent={this.state.newmessages} max={999} color="secondary" onClick={this.openChat}>
-								<IconButton style={{ color: "#424242" }} onClick={this.openChat}>
+								<IconButton className="ibtn" onClick={this.openChat}>
 									<ChatIcon />
 								</IconButton>
 							</Badge>
@@ -518,26 +535,20 @@ class Video extends Component {
 								)) : <p>No message yet</p>}
 							</Modal.Body>
 							<Modal.Footer className="div-send-msg">
-								<Input placeholder="Message" value={this.state.message} onChange={e => this.handleMessage(e)} />
+								<Input placeholder="Message" value={this.state.message} onChange={e => this.handleMessage(e)} onKeyPress={this.onKeyUp}/>
 								<Button variant="contained" color="primary" onClick={this.sendMessage}>Send</Button>
 							</Modal.Footer>
 						</Modal>
 
 						<div className="container">
-							<div style={{ paddingTop: "20px" }}>
-								<Input value={window.location.href} disable="true"></Input>
-								// inline
-								<Button style={{backgroundColor: "#3f51b5",color: "whitesmoke",marginLeft: "20px",
-									marginTop: "10px",width: "120px",fontSize: "10px"
-								}} onClick={this.copyUrl}>Copy invite link</Button>
+							<div className="room-link">
+								<TextField value={window.location.href} disable="true"></TextField><br />
+								<Button variant="contained" className="copybtn" onClick={this.copyUrl}>Copy invite link</Button>
 							</div>
-
-							<Row id="main" className="flex-container" style={{ margin: 0, padding: 0 }}>
-								<video id="my-video" ref={this.localVideoref} autoPlay muted style={{
-									borderStyle: "solid",borderColor: "#bdbdbd",margin: "10px",objectFit: "fill",
-									width: "100%"}}>
+							<div id="main" className="flex-container" style={{ margin: 0, padding: 0 }}>
+								<video id="my-video" ref={this.localVideoref} autoPlay muted>
 								</video>
-							</Row>
+							</div>
 						</div>
 					</div>
 				}

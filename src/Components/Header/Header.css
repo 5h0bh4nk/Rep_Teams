@@ -2,8 +2,8 @@
     -webkit-app-region: drag;
     -webkit-text-size-adjust: 100%;
     background: #6264a7;
-    height: 4rem;
-    display: flex;
+    /* height: 4rem; */
+    /* display: flex; */
     align-items: center;
     justify-content: space-between;
     color: #fff;
@@ -33,10 +33,19 @@
     
 }
 
+.head-links{
+    align-items: right;
+    color: white;
+}
+
 .bg-custom-1 {
     background-color: #85144b;
   }
   
   .bg-custom-2 {
   background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
+  }
+
+  .h-items{
+      color: #fff;   
   }
