@@ -6,6 +6,7 @@ import ToolbarButton from '../ToolbarButton';
  
 import './ConversationList.css';
 import { LocalSeeSharp } from '@material-ui/icons';
+import baseUrl from '../../shared/basUrl'
 
 export default function ConversationList(props) {
   const [conversations, setConversations] = useState([]);
@@ -18,13 +19,13 @@ export default function ConversationList(props) {
     myHeader.append('Content-Type', 'application/json');
     myHeader.append('Authorization', 'bearer '+ localStorage.getItem("token"));
 
-    fetch('http://localhost:4001/groups', {
+    fetch(baseUrl+'groups', {
       method: 'GET',
       headers: myHeader
     })
-    .then(response=> response.json())
+    .then(response => response.json())
     .then(response => {
-      console.log(response, 'bearer '+localStorage.getItem("token"));
+      console.log("RESPONSE",response);
         let newConversations = response.map(result => {
           console.log(result);
           return {
