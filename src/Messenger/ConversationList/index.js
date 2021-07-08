@@ -16,6 +16,7 @@ export default function ConversationList(props) {
 
  const getConversations = () => {
     const myHeader = new Headers();
+    myHeader.append('Accept', 'application/json');
     myHeader.append('Content-Type', 'application/json');
     myHeader.append('Authorization', 'bearer '+ localStorage.getItem("token"));
 
