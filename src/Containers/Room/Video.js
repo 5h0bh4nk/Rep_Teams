@@ -62,7 +62,7 @@ class Video extends Component {
 			showModal: false,
 			screenAvailable: false,
 			messages: [],
-			messa0ge: "",
+			message: "",
 			newmessages: 0,
 			askForUsername: true,
 			username: this.props.auth.user.username,
@@ -124,7 +124,7 @@ class Video extends Component {
 				// else stop all tracks
 				let tracks = this.localVideoref.current.srcObject.getTracks()
 				tracks.forEach(track => track.stop())
-			} catch (e) {}
+			} catch (e) {console.error(e)}
 		}
 	}
 
@@ -470,7 +470,7 @@ class Video extends Component {
 	}
 
 	render() {
-		if(this.isChrome() === false){
+		if(!this.isChrome()){
 			return (
 				<div class="uncompatible">
 					<h1>Sorry, this works only with Google Chrome</h1>

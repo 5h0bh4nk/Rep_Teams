@@ -9,11 +9,13 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "antd": "^4.1.4",
+    "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
     "concurrently": "^5.1.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "faker": "^4.1.0",
+    "moment": "^2.29.1",
     "mongoose": "^5.13.0",
     "nodemon": "^2.0.2",
     "passport": "^0.4.1",
@@ -64,5 +66,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "shave": "^2.5.10"
+  },
+  "engines": {
+    "node": "12.16.3"
   }
 }

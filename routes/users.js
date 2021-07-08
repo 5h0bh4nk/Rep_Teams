@@ -97,7 +97,7 @@ router.get('/facebook/token', passport.authenticate('facebook-token'), (req, res
   }
 });
 
-router.get('/checkJWTToken',cors.cors,  (req,res)=>{
+router.get('/checkJWTToken',cors.cors,  (req,res,next)=>{
   passport.authenticate('jwt', {session: false}, (err,user,info)=>{
     if(err) return next(err);
 

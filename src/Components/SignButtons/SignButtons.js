@@ -25,7 +25,7 @@ function SignButtons(props) {
                 <h3 className="text-success"> Succesfully logged in as
                     <span>
                      {' '}
-                     { props.auth.user.username} 
+                     { props.auth.user? props.auth.user.username : null } 
                     </span>
                 </h3>
                 <br />
