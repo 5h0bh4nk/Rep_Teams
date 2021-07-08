@@ -6,7 +6,7 @@ import ToolbarButton from '../ToolbarButton';
  
 import './ConversationList.css';
 import { LocalSeeSharp } from '@material-ui/icons';
-import baseUrl from '../../shared/basUrl'
+import {baseUrl} from '../../shared/basUrl'
 
 export default function ConversationList(props) {
   const [conversations, setConversations] = useState([]);
