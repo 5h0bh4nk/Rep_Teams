@@ -51,6 +51,7 @@ function Home(props) {
 					<FormGroup>
 						<Button type="submit" value="submit" color="primary">Connect</Button>
 					</FormGroup>
+					<span>* click connect directly to create a new room</span>
 				</Form>
 				<div id="join-error"></div>
 			</div>

@@ -3,23 +3,23 @@ import ConversationSearch from '../ConversationSearch';
 import ConversationListItem from '../ConversationListItem';
 import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
- 
+
 import './ConversationList.css';
-import { LocalSeeSharp } from '@material-ui/icons';
 import {baseUrl} from '../../shared/basUrl'
 
 export default function ConversationList(props) {
+
   const [conversations, setConversations] = useState([]);
   useEffect(() => {
     getConversations()
-  },[])
+  },[]);
 
  const getConversations = () => {
     const myHeader = new Headers();
     myHeader.append('Accept', 'application/json');
     myHeader.append('Content-Type', 'application/json');
     myHeader.append('Authorization', 'bearer '+ localStorage.getItem("token"));
-
+    
     fetch(baseUrl+'groups', {
       method: 'GET',
       headers: myHeader
@@ -28,7 +28,6 @@ export default function ConversationList(props) {
     .then(response => {
       console.log("RESPONSE",response);
         let newConversations = response.map(result => {
-          console.log(result);
           return {
             name: `${result}`,
             text: "This is a long text and can be truncated"
@@ -59,6 +58,6 @@ export default function ConversationList(props) {
             />
           )
         }
-      </div>
+     </div>
     );
 }

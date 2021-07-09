@@ -35,8 +35,10 @@
 }
 
 .head-links{
-    align-items: right;
+    align-self: right;
     color: white;
+    margin-right: 20px;
+    margin-left: 20px;
 }
 
 .bg-custom-1 {

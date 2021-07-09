@@ -1,17 +1,14 @@
 import React from 'react';
 import './Compose.css';
-
 export default function Compose(props) {
     return (
       <div className="compose">
         <input
           type="text"
           className="compose-input"
-          placeholder="Type a message, @name"
+          placeholder="Type a message"
         />
-        {
-          props.rightItems
-        }
+        <span class="iconify" data-icon="mdi-send" data-inline="false"></span>
       </div>
     );
 }

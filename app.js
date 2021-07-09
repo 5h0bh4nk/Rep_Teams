@@ -57,16 +57,19 @@ var connections = {}
 var messages = {}
 
 
+
 var timeOnline = {}
 
 // socket io for handling messages of rooms
 io.on('connection', (socket) => {
-
+	// socket = client
 	// adding connection
 	socket.on('join-call', (data) => {
-		const path = data.path.split("/");
+		var path = data.path.split("/");
 		const userId = data.userId;
 		const roomId = path[path.length-1];
+
+		path = data.path;
 
 		// save group name to user data
 		User.findOne({username: userId})
@@ -136,7 +139,6 @@ io.on('connection', (socket) => {
 		data = sanitizeString(data);
 		console.log("DATA", data)
 		sender = sanitizeString(sender);
-
 		var key;
 		var ok = false;
 
@@ -164,7 +166,7 @@ io.on('connection', (socket) => {
 			// storing chat messages into the room
 			Chat.create({content: data, author: sender })
 			.then((chatMsg)=>{
-				const roomPath = key.split(",");
+				const roomPath = key.split("/");
 				const roomId = roomPath[roomPath.length-1];
 				console.log("ROOM",roomId);
 				Group.findOne({groupId: roomId})
@@ -220,6 +222,7 @@ io.on('connection', (socket) => {
 		}
 	})
 })
+
 
 app.use(passport.initialize());
 

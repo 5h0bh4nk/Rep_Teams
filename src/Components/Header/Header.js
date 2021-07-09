@@ -1,7 +1,7 @@
 import {React , useState} from 'react';
 import './Header.css';
-import { Button, Form, FormGroup, Input, FormText } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Button} from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 import {
     Collapse,
     Navbar,
@@ -9,8 +9,6 @@ import {
     NavbarBrand,
     Nav,
     NavItem,
-    NavLink,
-    NavbarText
   } from 'reactstrap';
 import logo from '../../shared/images/logo-white.png';
 
@@ -23,12 +21,26 @@ function Header(props) {
           <NavbarBrand href="/"><img src={logo} height="40px" alt="MS_TEAMS" /></NavbarBrand>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
-            <Nav className="app-header-bar mr-auto" navbar>
+            <Nav className="app-header-bar ml-auto" navbar>
               <NavItem className="h-items">
-                <NavLink className="head-links" href="">Chats</NavLink>
+                <NavLink exact to="/home" className="head-links" href="">Home</NavLink>
+              </NavItem>
+              {' | '}
+              <NavItem className="h-items">
+                <NavLink exact to="/conversations" className="head-links" href="">Conversations</NavLink>
+              </NavItem>
+              {' | '}
+              <NavItem className="h-items">
+                <NavLink exact to="/dashboard" className="head-links" href="">Dashboard</NavLink>
+              </NavItem>
+              {' | '}
+              <NavItem className="h-items">
+                <Button outline color="warning" onClick={props.logoutUser} className="head-links" href="">
+                  <span class="iconify" data-icon="mdi-logout" data-inline="false"></span>
+                  Logout
+                </Button>
               </NavItem>
             </Nav>
-            <NavbarText className="head-links" align-items="right">{props.auth.user.username}</NavbarText>
           </Collapse>
         </Navbar>
       </div>

@@ -16,31 +16,10 @@ import 'antd/dist/antd.css'
 import Modal from 'react-bootstrap/Modal'
 import 'bootstrap/dist/css/bootstrap.css'
 import "./Video.css"
-
+import {peerConnectionConfig} from './Helpers/peerConnectionConfig';
 const server_url = process.env.NODE_ENV === 'production' ? 'https://shubh-meet.herokuapp.com/' : "http://localhost:4001"
 
 var connections = {}
-const peerConnectionConfig = {
-	'iceServers': [
-	 {
-		urls: [ "stun:stun.l.google.com:19302" ]
-	 },
-	 {
-		urls: [ "stun:bn-turn1.xirsys.com" ]
-	 }, {
-		username: "igHRI0ItDbrX-wEflUG_qwtvG6MG6B90uNAWe_YM6xKYCv32g0I1GXQkeBP3aXYyAAAAAGDjYgBzaHViaDRuaw==",
-		credential: "f11c8b22-ddc9-11eb-bd8e-0242ac140004",
-		urls: [
-			"turn:bn-turn1.xirsys.com:80?transport=udp",
-			"turn:bn-turn1.xirsys.com:3478?transport=udp",
-			"turn:bn-turn1.xirsys.com:80?transport=tcp",
-			"turn:bn-turn1.xirsys.com:3478?transport=tcp",
-			"turns:bn-turn1.xirsys.com:443?transport=tcp",
-			"turns:bn-turn1.xirsys.com:5349?transport=tcp"
-		]
-	 }
-	]
-}
 
 var socket = null
 var socketId = null
@@ -66,6 +45,7 @@ class Video extends Component {
 			newmessages: 0,
 			askForUsername: true,
 			username: this.props.auth.user.username,
+			
 		}
 		connections = {}
 

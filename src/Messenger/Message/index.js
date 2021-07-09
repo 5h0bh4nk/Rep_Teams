@@ -8,7 +8,7 @@ export default function Message(props) {
       isMine,
       startsSequence,
       endsSequence,
-      showTimestamp
+      showTimestamp,
     } = props;
 
     const friendlyTimestamp = moment(data.timestamp).format('LLLL');
@@ -25,10 +25,10 @@ export default function Message(props) {
               { friendlyTimestamp }
             </div>
         }
-
+        
         <div className="bubble-container">
           <div className="bubble" title={friendlyTimestamp}>
-            { data.message }
+          {!isMine? <div style={{fontWeight: 'bold'}}>{data.author}{':'}</div>: null} { data.message }
           </div>
         </div>
       </div>
