@@ -1,1 +1,1 @@
-export const baseUrl = 'https://shubh-meet.herokuapp.com/';
+export const baseUrl = 'https://shub-meet-api.herokuapp.com/';
