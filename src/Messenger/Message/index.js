@@ -8,7 +8,7 @@ export default function Message(props) {
       isMine,
       startsSequence,
       endsSequence,
-      showTimestamp,
+      showTimestamp
     } = props;
 
     const friendlyTimestamp = moment(data.timestamp).format('LLLL');

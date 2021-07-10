@@ -62,7 +62,6 @@ class App extends Component {
 		console.log("data",data);
 		if(!data.success && !data.error){
 				this.props.logoutUser();
-				console.log("khatam");
 				this.props.history.push("/home");
 			}
 		});

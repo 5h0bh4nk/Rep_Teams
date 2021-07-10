@@ -3,9 +3,9 @@ import ConversationSearch from '../ConversationSearch';
 import ConversationListItem from '../ConversationListItem';
 import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
-
 import './ConversationList.css';
 import {baseUrl} from '../../shared/basUrl'
+import MyDropdown from './Dropdown'
 
 export default function ConversationList(props) {
 
@@ -37,7 +37,6 @@ export default function ConversationList(props) {
         setConversations([...conversations, ...newConversations])
     });
   }
-
     return (
       <div className="conversation-list">
         <Toolbar
@@ -46,7 +45,7 @@ export default function ConversationList(props) {
             <ToolbarButton key="cog" icon="ion-ios-cog" />
           ]}
           rightItems={[
-            <ToolbarButton key="add" icon="ion-ios-add-circle-outline" />
+            <MyDropdown/>
           ]}
         />
         <ConversationSearch />

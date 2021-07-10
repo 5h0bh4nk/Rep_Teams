@@ -21,7 +21,7 @@ function Header(props) {
           <NavbarBrand href="/"><img src={logo} height="40px" alt="MS_TEAMS" /></NavbarBrand>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
-            <Nav className="app-header-bar ml-auto" navbar>
+            <Nav className="nav-links mr-auto" navbar>
               <NavItem className="h-items">
                 <NavLink exact to="/home" className="head-links" href="">Home</NavLink>
               </NavItem>

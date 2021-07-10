@@ -50,5 +50,6 @@
   }
 
   .h-items{
+      align-items: flex-end;
       color: #fff;   
   }

@@ -13,7 +13,6 @@ groupRouter.route('/')
     .then((user)=>{
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        console.log(user.groups);
         res.json(user.groups);
     }, (err)=>next(err))
     .catch(err=>next(err));

@@ -4,7 +4,7 @@ import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
 import Message from '../Message';
 import moment from 'moment';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import './MessageList.css';
 import {Input, Button} from '@material-ui/core'
 import io from 'socket.io-client'
@@ -19,7 +19,7 @@ export default function MessageList(props) {
   const [message,setMessage] = useState('');
   const [messages, setMessages] = useState([])
   const history = useHistory();
-
+  const [roomId, setRoomId] = useState('');
 
   useEffect(() => {
     
@@ -40,6 +40,8 @@ export default function MessageList(props) {
       const roomId = location[location.length-1];
 
       if(roomId.length !== 5) return;
+
+      setRoomId(roomId);
 
       fetch(baseUrl+'groups/'+roomId, {
         method: 'GET',
@@ -90,10 +92,6 @@ export default function MessageList(props) {
   const addMessage = (data, sender, socketIdSender) => {
 		console.log(data);
     setMessages(msg=>[...msg,{ author: sender, message: data, id: '111', timestamp: "2021-07-09T13:14:28.527Z" }]);
-    // this.setState(prevState => ({
-		// 	messages: [...prevState.messages, { "sender": sender, "data": data }],
-		// }))
-
 	}
 
   const connectToSocketServer = () => {
@@ -164,9 +162,9 @@ export default function MessageList(props) {
       console.log("messages before", messages);
       mysocket.emit('chat-message', message, username);
       // setMessages([...messages, { author: MY_USER_ID, message: message, id: '111', timestamp: "2021-07-09T13:14:28.527Z" }]);
-      console.log({ "author": MY_USER_ID, "message": message, "id": '111', "timestamp": "2021-07-09T13:14:28.527Z" });
+      // console.log({ "author": MY_USER_ID, "message": message, "id": '111', "timestamp": "2021-07-09T13:14:28.527Z" });
       setMessage('');
-      // console.log("messages ", messages);
+      console.log("messages afetr", messages);
       renderMessages();
     }
 
@@ -229,30 +227,30 @@ export default function MessageList(props) {
     return tempMessages;
   }
 
+    if(roomId==='') return(
+      <div>Choose a Conversation or start a new conversation</div>
+    );
+    else
     return(
       <div className="message-list">
         <Toolbar
           title="Conversation Title"
           rightItems={[
-            <ToolbarButton key="info" icon="ion-ios-information-circle-outline" />,
-            <ToolbarButton key="video" icon="ion-ios-videocam" />,
-            <ToolbarButton key="phone" icon="ion-ios-call" />
+            <ToolbarButton key="info" icon="ion-ios-log-out" />,
+            <Link exact to={`/room/${roomId}`} ><ToolbarButton key="video" icon="ion-ios-videocam" /></Link>
           ]}
         />
 
         <div className="message-list-container">{renderMessages()}</div>
-        <Input placeholder="Message" value={message} onChange={e => handleMessage(e)}/>
-				<Button variant="contained" color="primary" onClick={sendMessage}>Send</Button>
         <div className="wait"></div>
 
 
-        <Compose rightItems={[
-          <ToolbarButton key="photo" icon="ion-ios-camera" />,
+        <Compose message={message} handleMessage={handleMessage} rightItems={[
           <ToolbarButton key="image" icon="ion-ios-image" />,
           <ToolbarButton key="audio" icon="ion-ios-mic" />,
           <ToolbarButton key="money" icon="ion-ios-card" />,
-          <ToolbarButton key="games" icon="ion-logo-game-controller-b" />,
-          <ToolbarButton key="emoji" icon="ion-ios-happy" />
+          <ToolbarButton key="emoji" icon="ion-ios-happy" />,
+          <div onClick={sendMessage}><ToolbarButton key="send" icon="ion-ios-send" /></div>
         ]} />
       </div>
     );

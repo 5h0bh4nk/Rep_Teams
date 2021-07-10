@@ -2,10 +2,10 @@
   padding: 10px;
   display: flex;
   align-items: center;
-  background: white;
+  background: rgb(192, 192, 192);
   border-top: 1px solid #eeeef1;
   position: fixed;
-  width: calc(100% - 20px);
+  width: calc(50% - 20px);
   bottom: 0px;
 }
 
@@ -22,6 +22,7 @@
   border: none;
   font-size: 14px;
   height: 40px;
+  width: 100px;
   background: none;
 }
 
@@ -30,7 +31,7 @@
 }
 
 .compose .toolbar-button {
-  color: #bbbbbf;
+  color: #a5a5aa;
   margin-left: 15px;
 }
 

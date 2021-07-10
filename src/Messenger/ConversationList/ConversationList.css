@@ -2,3 +2,12 @@
   display: flex;
   flex-direction: column;
 }
+
+#url{
+  text-align: center;
+  align-self: center;
+}
+
+#join-error{
+  color: red;
+}

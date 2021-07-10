@@ -1,5 +1,6 @@
 import React from 'react';
 import './Compose.css';
+
 export default function Compose(props) {
     return (
       <div className="compose">
@@ -7,8 +8,12 @@ export default function Compose(props) {
           type="text"
           className="compose-input"
           placeholder="Type a message"
+          value={props.message}
+          onChange={e => props.handleMessage(e)}
         />
-        <span class="iconify" data-icon="mdi-send" data-inline="false"></span>
+        {
+          props.rightItems
+        }
       </div>
     );
 }
