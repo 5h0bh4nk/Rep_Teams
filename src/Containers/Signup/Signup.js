@@ -1,11 +1,10 @@
 import {React, useState} from 'react'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Form, FormGroup, FormText } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, Input, Label, Form, FormGroup } from 'reactstrap';
 import './Signup.css';
 import {baseUrl} from '../../shared/basUrl';
 
 function Signup(props) {
     // can be changed to false in case u want new values enter every time
-    const [unmountOnClose, setUnmountOnClose] = useState(false);
     const [formData, setFormData] = useState({});
 
     const RegisterUser = (data) =>{
@@ -50,7 +49,7 @@ function Signup(props) {
 
     return (
         <div>
-            <Modal isOpen={props.sign} toggle={toggleModal} className="login" unmountOnClose={unmountOnClose}>
+            <Modal isOpen={props.sign} toggle={toggleModal} className="login" unmountOnClose={false}>
                 <ModalHeader toggle={toggleModal}>Signup</ModalHeader>
                 <ModalBody>
                 <Form onSubmit={handleSignup} onChange={handleChange}>

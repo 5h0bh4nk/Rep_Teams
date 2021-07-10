@@ -1,12 +1,11 @@
 import {React, useState} from 'react';
-import {useDispatch} from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, Input, Label, Form, FormGroup } from 'reactstrap';
 import './Login.css'
 
 function Login(props) {
 
     // can be changed to false in case u want new values enter every time
-    const [unmountOnClose, setUnmountOnClose] = useState(false);
+    const [unmountOnClose] = useState(false);
     const [formdata, setformData] = useState({});
 
     const handleChange = (e) =>{

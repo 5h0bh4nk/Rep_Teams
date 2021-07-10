@@ -6,7 +6,6 @@ import Message from '../Message';
 import moment from 'moment';
 import { useHistory, Link } from 'react-router-dom';
 import './MessageList.css';
-import {Input, Button} from '@material-ui/core'
 import io from 'socket.io-client'
 import {baseUrl} from '../../shared/basUrl'
 import {peerConnectionConfig} from '../../Containers/Room/Helpers/peerConnectionConfig';
@@ -22,7 +21,12 @@ export default function MessageList(props) {
   const [roomId, setRoomId] = useState('');
 
   useEffect(() => {
-    
+    const currlocation = window.location.href.split("/");
+    console.log(currlocation);
+    const roomId = currlocation[currlocation.length-1];
+    if(roomId.length !== 5) return;
+
+    setRoomId(roomId);
     return history.listen((location)=>{
       connectToSocketServer();
       getMessages();
@@ -102,9 +106,6 @@ export default function MessageList(props) {
     socket.on('signal', gotMessageFromServer);
 
     socket.on('connect', ()=>{
-
-        const room = window.location.href.split("/");
-        const roomId = room[room.length-1]
         socket.emit('join-call',{path: window.location.href, userId: localStorage.getItem("creds").split('"')[3]});
         const socketId = socket.id;
         console.log(socketId);
