@@ -45,7 +45,7 @@ class Video extends Component {
 			newmessages: 0,
 			askForUsername: true,
 			username: this.props.auth.user.username,
-			
+			myVideoClass: "my-video"
 		}
 		connections = {}
 
@@ -161,18 +161,23 @@ class Video extends Component {
 
 
 	/// check
-	getDislayMedia = () => {
+	getDisplayMedia = () => {
 		if (this.state.screen) {
 			if (navigator.mediaDevices.getDisplayMedia) {
 				navigator.mediaDevices.getDisplayMedia({ video: true, audio: true })
-					.then(this.getDislayMediaSuccess)
-					.then((stream) => {})
+					.then(this.getDisplayMediaSuccess)
+					.then((stream) => {
+						this.setState({myVideoClass: (this.state.myVideoClass==='my-video')?'my-video-screen':'my-video'})
+					})
 					.catch((e) => console.log(e))
 			}
 		}
+		else{
+			this.setState({myVideoClass: (this.state.myVideoClass==='my-video')?'my-video-screen':'my-video', video: true}, () => this.getUserMedia())
+		}
 	}
 
-	getDislayMediaSuccess = (stream) => {
+	getDisplayMediaSuccess = (stream) => {
 		try {
 			window.localStream.getTracks().forEach(track => track.stop())
 		} catch(e) { console.log(e) }
@@ -377,7 +382,7 @@ class Video extends Component {
 
 	handleVideo = () => this.setState({ video: !this.state.video }, () => this.getUserMedia())
 	handleAudio = () => this.setState({ audio: !this.state.audio }, () => this.getUserMedia())
-	handleScreen = () => this.setState({ screen: !this.state.screen }, () => this.getDislayMedia())
+	handleScreen = () => this.setState({ screen: !this.state.screen, video: false }, () => this.getDisplayMedia())
 
 	handleEndCall = () => {
 		try {
@@ -526,7 +531,7 @@ class Video extends Component {
 								<Button variant="outlined" color="primary" className="copybtn" onClick={this.copyUrl}>Copy invite link</Button>
 							</div>
 							<div id="main" className="flex-container" style={{ margin: 0, padding: 0 }}>
-								<video id="my-video" ref={this.localVideoref} autoPlay muted>
+								<video id={this.state.myVideoClass} ref={this.localVideoref} autoPlay muted>
 								</video>
 							</div>
 						</div>
