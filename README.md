@@ -1,13 +1,14 @@
 # MeetChat
 
 ### Features
-- No account needed ( Need to add auth )
+- Authentication using JWT tokens
 - Messaging chat and video streaming in real-time
 - Screen sharing to present documents, slides, and more
 - Everyting is peer-to-peer (using mesh method)
 - smooth UI and UX setup
-- more to be added soon
-- chat support for people who get late also
+- *chat support for people who get late also
+- xss sanitization of inputs
+- Coversations after the meet abd before meet also
 
 ### Local setup
 
