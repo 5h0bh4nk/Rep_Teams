@@ -19,6 +19,7 @@ import "./Video.css"
 import {peerConnectionConfig} from './Helpers/peerConnectionConfig';
 const server_url = process.env.NODE_ENV === 'production' ? 'https://shubh-meet.herokuapp.com/' : "http://localhost:4001"
 
+
 var connections = {}
 
 var socket = null
@@ -45,7 +46,8 @@ class Video extends Component {
 			newmessages: 0,
 			askForUsername: true,
 			username: this.props.auth.user.username,
-			myVideoClass: "my-video"
+			myVideoClass: "my-video",
+			path: window.location.href.split("/")
 		}
 		connections = {}
 
@@ -389,7 +391,7 @@ class Video extends Component {
 			let tracks = this.localVideoref.current.srcObject.getTracks()
 			tracks.forEach(track => track.stop())
 		} catch (e) {}
-		window.location.href = "/"
+		window.location.href = "/conversations"
 	}
 
 	openChat = () => this.setState({ showModal: true, newmessages: 0 })
@@ -528,6 +530,7 @@ class Video extends Component {
 						<div className="container">
 							<div className="room-link">
 								{/* <TextField value={window.location.href} disable="true"></TextField><br /> */}
+								<div>ROOM ID : {this.state.path[this.state.path.length-1]}</div>
 								<Button variant="outlined" color="primary" className="copybtn" onClick={this.copyUrl}>Copy invite link</Button>
 							</div>
 							<div id="main" className="flex-container" style={{ margin: 0, padding: 0 }}>

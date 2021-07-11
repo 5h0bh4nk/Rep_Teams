@@ -47,6 +47,7 @@ video {
     border-radius: 1rem;
     margin: 0.5rem;
     width: 400px;
+    max-width: 400px;
     /* object-fit: cover; */
     transform: rotateY(180deg);
     -webkit-transform: rotateY(180deg);

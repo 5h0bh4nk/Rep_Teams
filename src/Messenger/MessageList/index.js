@@ -21,13 +21,12 @@ export default function MessageList(props) {
   const [roomId, setRoomId] = useState('');
 
   useEffect(() => {
-    const currlocation = window.location.href.split("/");
-    console.log(currlocation);
-    const roomId = currlocation[currlocation.length-1];
-    if(roomId.length !== 5) return;
-
-    setRoomId(roomId);
     return history.listen((location)=>{
+      const currlocation = location.pathname.split("/");
+      const roomId = currlocation[currlocation.length-1];
+      if(roomId.length !== 5) return;
+  
+      setRoomId(roomId);
       connectToSocketServer();
       getMessages();
     })
@@ -95,7 +94,7 @@ export default function MessageList(props) {
 
   const addMessage = (data, sender, socketIdSender) => {
 		console.log(data);
-    setMessages(msg=>[...msg,{ author: sender, message: data, id: '111', timestamp: "2021-07-09T13:14:28.527Z" }]);
+    setMessages(msg=>[...msg,{ author: sender, message: data, id: '111', timestamp: new Date().getTime() }]);
 	}
 
   const connectToSocketServer = () => {
@@ -151,7 +150,8 @@ export default function MessageList(props) {
 
     const username = localStorage.getItem("creds").split('"')[3];
     const handleMessage = (e) => setMessage(e.target.value);
-    const sendMessage = () => {
+    const sendMessage = (e) => {
+      e.preventDefault();
       if(message==="") return;
 
       if(!mysocket){
@@ -167,6 +167,7 @@ export default function MessageList(props) {
       setMessage('');
       console.log("messages afetr", messages);
       renderMessages();
+      
     }
 
   const renderMessages = () => {
@@ -246,7 +247,7 @@ export default function MessageList(props) {
         <div className="wait"></div>
 
 
-        <Compose message={message} handleMessage={handleMessage} rightItems={[
+        <Compose message={message} sendMessage={sendMessage} handleMessage={handleMessage} rightItems={[
           <ToolbarButton key="image" icon="ion-ios-image" />,
           <ToolbarButton key="audio" icon="ion-ios-mic" />,
           <ToolbarButton key="money" icon="ion-ios-card" />,
