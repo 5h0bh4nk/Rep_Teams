@@ -22,7 +22,11 @@
   border: none;
   font-size: 14px;
   height: 40px;
+<<<<<<< HEAD
   width: 300px;
+=======
+  width: 100px;
+>>>>>>> ded528c438984b9228a996fc4340b0f9b1c8f984
   background-color:rgb(255, 255, 255);
 }
 

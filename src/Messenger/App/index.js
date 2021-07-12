@@ -1,5 +1,5 @@
 import React from 'react';
-import Messenger from '../Messenger';
+import Messenger from '../Messenger/Messenger';
 import Header from '../../Components/Header/Header'
 
 export default function App(props) {

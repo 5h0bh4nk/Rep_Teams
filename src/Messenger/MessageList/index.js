@@ -21,13 +21,15 @@ export default function MessageList(props) {
   const [roomId, setRoomId] = useState('');
 
   useEffect(() => {
-    const currlocation = window.location.href.split("/");
-    console.log(currlocation);
-    const roomId = currlocation[currlocation.length-1];
-    if(roomId.length !== 5) return;
+    getMessages();
 
-    setRoomId(roomId);
     return history.listen((location)=>{
+      console.log(location);
+      const currlocation = location.pathname.split("/");
+      const roomId = currlocation[currlocation.length-1];
+      if(roomId.length === 5)
+      setRoomId(roomId);
+
       connectToSocketServer();
       getMessages();
     })
@@ -52,8 +54,8 @@ export default function MessageList(props) {
         headers: myHeader
       })
       .then(response => response.json())
-      .then(response => {
-        console.log("RESPONSE CONVOS",response);
+      .then((response) => {
+        if(response.error) return;
           let tempMessages = response.map(result => {
             return {
               id: result._id,
@@ -64,7 +66,8 @@ export default function MessageList(props) {
           });
           console.log(tempMessages);
           setMessages([ ...messages,...tempMessages])
-      });
+      })
+      .catch((err)=>console.error(err));
       
   }
 
@@ -95,7 +98,7 @@ export default function MessageList(props) {
 
   const addMessage = (data, sender, socketIdSender) => {
 		console.log(data);
-    setMessages(msg=>[...msg,{ author: sender, message: data, id: '111', timestamp: "2021-07-09T13:14:28.527Z" }]);
+    setMessages(msg=>[...msg,{ author: sender, message: data, id: '111', timestamp: new Date().getTime() }]);
 	}
 
   const connectToSocketServer = () => {
@@ -151,22 +154,20 @@ export default function MessageList(props) {
 
     const username = localStorage.getItem("creds").split('"')[3];
     const handleMessage = (e) => setMessage(e.target.value);
-    const sendMessage = () => {
+    const sendMessage = (e) => {
+      e.preventDefault();
       if(message==="") return;
 
       if(!mysocket){
         connectToSocketServer();
-        // console.log("CONNECTING TO SOCKET");
-        // document.querySelector('wait').innerHTML="Wait for server";
         return;
       }
       console.log("messages before", messages);
       mysocket.emit('chat-message', message, username);
-      // setMessages([...messages, { author: MY_USER_ID, message: message, id: '111', timestamp: "2021-07-09T13:14:28.527Z" }]);
-      // console.log({ "author": MY_USER_ID, "message": message, "id": '111', "timestamp": "2021-07-09T13:14:28.527Z" });
       setMessage('');
       console.log("messages afetr", messages);
       renderMessages();
+      
     }
 
   const renderMessages = () => {
@@ -191,6 +192,11 @@ export default function MessageList(props) {
         let previousDuration = moment.duration(currentMoment.diff(previousMoment));
         prevBySameAuthor = previous.author === current.author;
         
+        if(prevBySameAuthor && previous.timestamp===current.timestamp){
+          i++;
+          continue;
+        }
+
         if (prevBySameAuthor && previousDuration.as('hours') < 1) {
           startsSequence = false;
         }
@@ -229,15 +235,18 @@ export default function MessageList(props) {
   }
 
     if(roomId==='') return(
-      <div>Choose a Conversation or start a new conversation</div>
+      <div>
+      <div className="text-info">Choose a Conversation to chat</div>
+      <div className="text-info">Click + option besides Messenger to start a new Conversation</div>
+      </div>
     );
     else
     return(
       <div className="message-list">
         <Toolbar
-          title="Conversation Title"
+          title={`Room_ID : ${roomId}`}
           rightItems={[
-            <ToolbarButton key="info" icon="ion-ios-log-out" />,
+            <ToolbarButton key="info" icon="ion-ios-log-out" onClickfn={props.logoutUser}/>,
             <Link exact to={`/room/${roomId}`} ><ToolbarButton key="video" icon="ion-ios-videocam" /></Link>
           ]}
         />
@@ -246,12 +255,12 @@ export default function MessageList(props) {
         <div className="wait"></div>
 
 
-        <Compose message={message} handleMessage={handleMessage} rightItems={[
+        <Compose message={message} sendMessage={sendMessage} handleMessage={handleMessage} rightItems={[
           <ToolbarButton key="image" icon="ion-ios-image" />,
           <ToolbarButton key="audio" icon="ion-ios-mic" />,
           <ToolbarButton key="money" icon="ion-ios-card" />,
           <ToolbarButton key="emoji" icon="ion-ios-happy" />,
-          <div onClick={sendMessage}><ToolbarButton key="send" icon="ion-ios-send" /></div>
+          <ToolbarButton key="send" icon="ion-ios-send" onClickfn={sendMessage}/>
         ]} />
       </div>
     );
