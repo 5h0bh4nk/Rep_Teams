@@ -47,13 +47,11 @@ export const loginUser = (creds) => (dispatch) => {
         })
     .then(response => response.json())
     .then(response => {
-        console.log("HELLO2");
         if (response.success) {
             // If login was successful, set the token in local storage
             localStorage.setItem('token', response.token);
             //dont save pass
             localStorage.setItem('creds', JSON.stringify(creds));
-            console.log(response);
             // Dispatch the success action
             // dispatch(fetchFavorites());
             dispatch(receiveLogin(response));

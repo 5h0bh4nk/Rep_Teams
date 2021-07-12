@@ -140,7 +140,6 @@ io.on('connection', (socket) => {
 
 		// sanitising input for security purpose
 		data = sanitizeString(data);
-		console.log("DATA", data)
 		sender = sanitizeString(sender);
 		var key;
 		var ok = false;

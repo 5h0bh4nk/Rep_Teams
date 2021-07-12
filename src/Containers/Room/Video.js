@@ -530,7 +530,7 @@ class Video extends Component {
 						<div className="container">
 							<div className="room-link">
 								{/* <TextField value={window.location.href} disable="true"></TextField><br /> */}
-								<div>ROOM ID : {this.state.path[this.state.path.length-1]}</div>
+								<div>ROOM ID : {this.state.path[this.state.path.length-1]}</div><br />
 								<Button variant="outlined" color="primary" className="copybtn" onClick={this.copyUrl}>Copy invite link</Button>
 							</div>
 							<div id="main" className="flex-container" style={{ margin: 0, padding: 0 }}>

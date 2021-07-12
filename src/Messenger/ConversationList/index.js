@@ -32,7 +32,6 @@ export default function ConversationList(props) {
     })
     .then(response => response.json())
     .then(response => {
-      console.log("RESPONSE",response);
         let newConversations = response.filter(resp=>{
           if(resp.length!==5) return false;
           return true;
@@ -42,7 +41,6 @@ export default function ConversationList(props) {
             text: "Click on room to connect"
           };
         });
-        console.log(newConversations);
         setConversations([...conversations, ...newConversations])
     });
   }

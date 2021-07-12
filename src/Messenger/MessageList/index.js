@@ -64,7 +64,6 @@ export default function MessageList(props) {
               timestamp: result.createdAt
             };
           });
-          console.log(tempMessages);
           setMessages([ ...messages,...tempMessages])
       })
       .catch((err)=>console.error(err));
@@ -97,7 +96,6 @@ export default function MessageList(props) {
 	}
 
   const addMessage = (data, sender, socketIdSender) => {
-		console.log(data);
     setMessages(msg=>[...msg,{ author: sender, message: data, id: '111', timestamp: new Date().getTime() }]);
 	}
 
@@ -162,10 +160,8 @@ export default function MessageList(props) {
         connectToSocketServer();
         return;
       }
-      console.log("messages before", messages);
       mysocket.emit('chat-message', message, username);
       setMessage('');
-      console.log("messages afetr", messages);
       renderMessages();
       
     }
