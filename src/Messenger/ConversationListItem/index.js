@@ -6,7 +6,7 @@ import './ConversationListItem.css';
 
 export default function ConversationListItem(props) {
   useEffect(() => {
-    shave('.conversation-snippet', 20);
+    shave('.conversation-snippet', 30);
   })
 
     const { name, text } = props.data;

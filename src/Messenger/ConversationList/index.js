@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { useHistory } from 'react-router-dom';
 import ConversationSearch from '../ConversationSearch';
 import ConversationListItem from '../ConversationListItem';
 import Toolbar from '../Toolbar';
@@ -10,9 +11,14 @@ import MyDropdown from './Dropdown'
 export default function ConversationList(props) {
 
   const [conversations, setConversations] = useState([]);
+  const history = useHistory();
   useEffect(() => {
-    getConversations()
-  },[]);
+      getConversations();
+      return history.listen((location)=>{
+        getConversations();
+      })
+  },[history]);
+
 
  const getConversations = () => {
     const myHeader = new Headers();
@@ -30,7 +36,7 @@ export default function ConversationList(props) {
         let newConversations = response.map(result => {
           return {
             name: `${result}`,
-            text: "This is a long text and can be truncated"
+            text: "Click on room to connect"
           };
         });
         console.log(newConversations);

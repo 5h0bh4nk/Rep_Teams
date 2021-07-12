@@ -1,6 +1,6 @@
 import React from 'react';
 import './Compose.css';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap'
+import { Form, Input } from 'reactstrap'
 
 export default function Compose(props) {
     return (
@@ -17,7 +17,7 @@ export default function Compose(props) {
         {
           props.rightItems
         }
-        
+
       </div>
     );
 }
