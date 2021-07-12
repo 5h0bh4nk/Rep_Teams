@@ -74,7 +74,7 @@ io.on('connection', (socket) => {
 		// save group name to user data
 		User.findOne({username: userId})
 		.then((user)=>{
-			if(!user.groups.includes(roomId))
+			if(!user.groups.includes(roomId) && roomId.length === 5)
 			user.groups.push(roomId);
 			user.save();
 		})
@@ -84,6 +84,9 @@ io.on('connection', (socket) => {
 		Group.findOne({groupId: roomId})
 		.then((group)=>{
 			if(!group){
+				if(roomId.length!==5){
+					throw new Error("Incorrect Room ID");
+				}
 				Group.create({groupId: roomId})
 				.then((group)=>{
 					group.members.push(userId);

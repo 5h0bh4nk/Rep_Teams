@@ -27,7 +27,7 @@ export default function MessageList(props) {
       console.log(location);
       const currlocation = location.pathname.split("/");
       const roomId = currlocation[currlocation.length-1];
-      if(roomId.length !== 5 && roomId !== 'conversations')
+      if(roomId.length === 5)
       setRoomId(roomId);
 
       connectToSocketServer();

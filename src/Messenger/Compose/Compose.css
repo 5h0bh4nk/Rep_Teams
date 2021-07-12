@@ -23,7 +23,7 @@
   font-size: 14px;
   height: 40px;
   width: 100px;
-  background: none;
+  background-color:rgb(255, 255, 255);
 }
 
 .compose-input::placeholder {

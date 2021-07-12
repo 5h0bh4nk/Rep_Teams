@@ -33,7 +33,10 @@ export default function ConversationList(props) {
     .then(response => response.json())
     .then(response => {
       console.log("RESPONSE",response);
-        let newConversations = response.map(result => {
+        let newConversations = response.filter(resp=>{
+          if(resp.length!==5) return false;
+          return true;
+        }).map(result => {
           return {
             name: `${result}`,
             text: "Click on room to connect"
