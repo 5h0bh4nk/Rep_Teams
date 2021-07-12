@@ -1,36 +1,112 @@
-# MeetChat
-# ![WebApp](https://iharsh234.github.io/WebApp/images/demo/demo_landing.JPG)
+# Welcome to Shubs_Meet
+# ![Shubs_Meet](demo.png)
+*A video chat app to help you stay connected*
 
 ## Features
-- Authentication using JWT tokens
-- Messaging chat and video streaming in real-time
-- Screen sharing to present documents, slides, and more
-- Everyting is peer-to-peer (using mesh method)
-- smooth UI and UX setup
-- *chat support for people who get late also
-- xss sanitization of inputs
-- Coversations after the meet abd before meet also
+- Instantly create a new room or join a new one 💬
+- Video call with multiple people in real-time 📹
+- Mute audio/video 🙊
+- Share screen during video call 💻
+- Chat before starting a video call by creating a new room in conversations tab 😇
+- Chat with your friends during a video call 😜
+- View the chats that happened in the video meet before you even joined to catch up with others if u are late 🤙
+- Chat notifications 📸 
+- Continue your chat after the video call also ( includes your chats during the call ) 🤭
+- Authentication support using passport and JWT tokens to prevent unknown users 🙌
+- Simple and intuitive UI 😍
+- XSS sanitization of chats (security 😉)
+<br /> <br />
 
-## Local setup
+## TechStacks / Modules used
+- ReactJS - (reactstrap , materailUI, etc)
+- Redux
+- Passport auth
+- Express
+- MongoDB
+- SocketIO 
+- WebRTC
+- and others
 
-1. `yarn install`
-2. `yarn dev`
-3. `go to /home for frontend`
-4. `/room for chatrooms`
+<br /> 
 
-## Process
+## API endpoints
+- /users (admin only)
+- /users/login
+- /users/signup
+- /facebook/token (fb auth)
+- /users/checkJWTToken
+- /groups (to fetch groups of user)
+- /groups/:roomId ( to fetch messages )
 
-1. Each peer creates an RTCPeerConnection object representing their end of the WebRTC session.
-2. Each peer establishes a handler for icecandidate events, which handles sending those candidates to the other peer over the signaling channel.
-3. Each peer establishes a handler for track event, which is received when the remote peer adds a track to the stream. This code should connect the tracks to its consumer, such as a 'video' element.
-4. The caller creates and shares with the receiving peer a unique identifier or token of some kind so that the call between them can be identified by the code on the signaling server. The exact contents and form of this identifier is up to you.
-5. Each peer connects to an agreed-upon signaling server, such as a WebSocket server they both know how to exchange messages with.
-6. Each peer tells the signaling server that they want to join the same WebRTC session (identified by the token established in step 4).
+<br />
 
+## Requirements
+### To be able to run this app locally :
+- you need to have Nodejs installed
+- you need to have node package manager , npm or yarn( preferable )
+- It currently uses a free and limited storage mongoDB cluster . To use local database or your database , change the mongoUrl in [config.js](config.js) . ( Use 'localhost:27017' for using local mongoDB and execute ```mongo run``` command on your terminal before using ) .
+<br /><br />
+
+## Installation / Local Setup
+
+### **Running locally ( production server )**
+#### `Step 1` - clone the repo
+```bash
+$ git clone https://github.com/5h0bh4nk/SHUBH_TEAMS_
+```
+#### `Step 2` - cd in the repo
+
+```bash
+$ cd SHUBH_TEAMS_
+```
+#### `Step 3` - install dependencies
+
+```bash
+$ yarn install
+```
+#### `Step 4` - Build the react app
+
+```bash
+$ yarn build
+```
+#### `Step 5` - run application
+
+```bash
+$ yarn start
+```
+
+In browser, open [http://localhost:4001](http://localhost:4001)
+
+<br />
+
+### **Running locally ( Development server )**
+#### `Step 1` - clone the repo
+```bash
+$ git clone https://github.com/5h0bh4nk/SHUBH_TEAMS_
+```
+#### `Step 2` - cd in the repo
+
+```bash
+$ cd SHUBH_TEAMS_
+```
+#### `Step 3` - install dependencies
+
+```bash
+$ yarn install
+```
+#### `Step 4` - run application
+
+```bash
+$ yarn dev
+```
+
+In browser, open [http://localhost:8000](http://localhost:8000)
+
+<br />
 
 ## Code Structure
 
-```bashrc
+```bash
 - 📂 __CODE STRUCTURE__
    - 📄 [Procfile](Procfile)
    - 📄 [README.md](README.md)
