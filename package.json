@@ -13,6 +13,7 @@
     "bootstrap": "^5.0.2",
     "concurrently": "^5.1.0",
     "cors": "^2.8.5",
+    "emoji-picker-react": "^3.4.8",
     "express": "^4.17.1",
     "faker": "^4.1.0",
     "moment": "^2.29.1",

@@ -3,7 +3,6 @@ import { Input, Button, Form, FormGroup, Label } from 'reactstrap';
 import "./Home.css"
 
 function Home(props) {
-  	
 	const [url, setUrl] = useState('');
 
 	const handleChange = (event) => setUrl(event.target.value);
@@ -30,7 +29,7 @@ function Home(props) {
 	return (
 		<div className="container2">
 			<div>
-				<h1 className="text-primary">
+				<h1 class="welcome-text">
 					Welcome, {props.auth.user.username}
 				</h1>
 				<p>

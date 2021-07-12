@@ -91,7 +91,7 @@ class App extends Component {
 
 		const Messenger = () =>{
 			return(
-				<ChatApp auth = {this.props.auth} />
+				<ChatApp auth = {this.props.auth} logoutUser={this.props.logoutUser}/>
 			)
 		}
 

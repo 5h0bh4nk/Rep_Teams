@@ -2,11 +2,11 @@ import React from 'react';
 import Messenger from '../Messenger';
 import Header from '../../Components/Header/Header'
 
-export default function App() {
+export default function App(props) {
     return (
       <div className="App">
-        <Header />
-        <Messenger />
+        <Header logoutUser={props.logoutUser} />
+        <Messenger logoutUser={props.logoutUser}/>
       </div>
     );
 }

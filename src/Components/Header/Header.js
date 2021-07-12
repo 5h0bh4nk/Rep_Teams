@@ -23,15 +23,15 @@ function Header(props) {
           <Collapse isOpen={isOpen} navbar>
             <Nav className="nav-links mr-auto" navbar>
               <NavItem className="h-items">
-                <NavLink exact to="/home" className="head-links" href="">Home</NavLink>
+                <NavLink exact to="/home" className="head-links" >Home</NavLink>
               </NavItem>
               {' | '}
               <NavItem className="h-items">
-                <NavLink exact to="/conversations" className="head-links" href="">Conversations</NavLink>
+                <NavLink exact to="/conversations" className="head-links" >Conversations</NavLink>
               </NavItem>
               {' | '}
               <NavItem className="h-items">
-                <NavLink exact to="/dashboard" className="head-links" href="">Dashboard</NavLink>
+                <NavLink exact to="/dashboard" className="head-links" >Dashboard</NavLink>
               </NavItem>
               {' | '}
               <NavItem className="h-items">

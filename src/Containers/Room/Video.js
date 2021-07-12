@@ -19,6 +19,7 @@ import "./Video.css"
 import {peerConnectionConfig} from './Helpers/peerConnectionConfig';
 const server_url = process.env.NODE_ENV === 'production' ? 'https://shubh-meet.herokuapp.com/' : "http://localhost:4001"
 
+
 var connections = {}
 
 var socket = null
@@ -45,7 +46,8 @@ class Video extends Component {
 			newmessages: 0,
 			askForUsername: true,
 			username: this.props.auth.user.username,
-			
+			myVideoClass: "my-video",
+			path: window.location.href.split("/")
 		}
 		connections = {}
 
@@ -161,18 +163,23 @@ class Video extends Component {
 
 
 	/// check
-	getDislayMedia = () => {
+	getDisplayMedia = () => {
 		if (this.state.screen) {
 			if (navigator.mediaDevices.getDisplayMedia) {
 				navigator.mediaDevices.getDisplayMedia({ video: true, audio: true })
-					.then(this.getDislayMediaSuccess)
-					.then((stream) => {})
+					.then(this.getDisplayMediaSuccess)
+					.then((stream) => {
+						this.setState({myVideoClass: (this.state.myVideoClass==='my-video')?'my-video-screen':'my-video'})
+					})
 					.catch((e) => console.log(e))
 			}
 		}
+		else{
+			this.setState({myVideoClass: (this.state.myVideoClass==='my-video')?'my-video-screen':'my-video', video: true}, () => this.getUserMedia())
+		}
 	}
 
-	getDislayMediaSuccess = (stream) => {
+	getDisplayMediaSuccess = (stream) => {
 		try {
 			window.localStream.getTracks().forEach(track => track.stop())
 		} catch(e) { console.log(e) }
@@ -377,14 +384,14 @@ class Video extends Component {
 
 	handleVideo = () => this.setState({ video: !this.state.video }, () => this.getUserMedia())
 	handleAudio = () => this.setState({ audio: !this.state.audio }, () => this.getUserMedia())
-	handleScreen = () => this.setState({ screen: !this.state.screen }, () => this.getDislayMedia())
+	handleScreen = () => this.setState({ screen: !this.state.screen, video: false }, () => this.getDisplayMedia())
 
 	handleEndCall = () => {
 		try {
 			let tracks = this.localVideoref.current.srcObject.getTracks()
 			tracks.forEach(track => track.stop())
 		} catch (e) {}
-		window.location.href = "/"
+		window.location.href = "/conversations"
 	}
 
 	openChat = () => this.setState({ showModal: true, newmessages: 0 })
@@ -523,10 +530,11 @@ class Video extends Component {
 						<div className="container">
 							<div className="room-link">
 								{/* <TextField value={window.location.href} disable="true"></TextField><br /> */}
+								<div>ROOM ID : {this.state.path[this.state.path.length-1]}</div>
 								<Button variant="outlined" color="primary" className="copybtn" onClick={this.copyUrl}>Copy invite link</Button>
 							</div>
 							<div id="main" className="flex-container" style={{ margin: 0, padding: 0 }}>
-								<video id="my-video" ref={this.localVideoref} autoPlay muted>
+								<video id={this.state.myVideoClass} ref={this.localVideoref} autoPlay muted>
 								</video>
 							</div>
 						</div>
