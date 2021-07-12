@@ -236,8 +236,8 @@ export default function MessageList(props) {
 
     if(roomId==='') return(
       <div>
-      <div className="text-info">Choose a Conversation to chat</div>
-      <div className="text-info">Click + option besides Messenger to start a new Conversation</div>
+        <div className="start-text-info">Choose a Conversation to chat</div>
+        <div className="start-text-info">Click + option besides Messenger to start a new Conversation</div>
       </div>
     );
     else
