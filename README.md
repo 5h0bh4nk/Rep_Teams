@@ -11,7 +11,11 @@
 
 
 # ![Shubs_Meet](demo.png)
-*A video chat app to help you stay connected*
+*A video chat app built from scratch without the use of any public or pre existing APIs/SDKs like firebase/jitsi*
+<br />
+
+Video link : [youtube](https://youtu.be/OFZAdckRr3I)<br />
+Demo link : [shubh-meet](https://shubh-meet.herokuapp.com)
 
 ## Features
 - Instantly create a new room or join a new one 💬
@@ -112,6 +116,16 @@ $ yarn dev
 ```
 
 In browser, open [http://localhost:8000](http://localhost:8000)
+
+<br />
+
+## Task sync strategies  
+https://www.notion.so/998fad9b7fac42c8a2382d70e38f7263?v=645f6919cfcf4c6c918841b96ce22f75
+<br />
+
+## CI/CD of my app using heroku cli
+
+![heroku builds](cicd.jpg)
 
 <br />
 
