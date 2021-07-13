@@ -252,10 +252,6 @@ export default function MessageList(props) {
 
 
         <Compose message={message} sendMessage={sendMessage} handleMessage={handleMessage} rightItems={[
-          <ToolbarButton key="image" icon="ion-ios-image" />,
-          <ToolbarButton key="audio" icon="ion-ios-mic" />,
-          <ToolbarButton key="money" icon="ion-ios-card" />,
-          <ToolbarButton key="emoji" icon="ion-ios-happy" />,
           <ToolbarButton key="send" icon="ion-ios-send" onClickfn={sendMessage}/>
         ]} />
       </div>
