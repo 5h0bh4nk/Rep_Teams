@@ -188,7 +188,7 @@ export default function MessageList(props) {
         let previousDuration = moment.duration(currentMoment.diff(previousMoment));
         prevBySameAuthor = previous.author === current.author;
         
-        if(prevBySameAuthor && previous.timestamp===current.timestamp){
+        if(prevBySameAuthor && previous.message===current.message){
           i++;
           continue;
         }
