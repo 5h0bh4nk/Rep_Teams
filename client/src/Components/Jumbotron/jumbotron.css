@@ -1,0 +1,86 @@
+body {
+    font-size: 15px;
+    font-family: Segoe UI,SegoeUI,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    min-width: 320px;
+    color: #000;
+    background-color: #fff;
+}
+
+.c-heading-1 {
+    margin: 0 auto;
+    text-align: center;
+    padding: 40px 0 2px;
+    color: #4b53bc;
+    font-weight: 600;
+}
+/* 
+@media (max-width: 767px)
+.c-heading-1 {
+    padding: 38px 0 2px;
+    font-size: 34px;
+    line-height: 40px;
+} */
+
+h1 {
+    font-size: 2em;
+    margin: .67em 0;
+}
+
+.c-heading-2 {
+    padding: 38px 0 2px;
+    font-weight: 400;
+    font-size: 34px;
+    line-height: 40px;
+    margin-bottom: 10px;
+}
+
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+h1 {
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+.flexbox{
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} 
+
+.flex-item{
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+    width: 50%;
+} 
+
+@media screen and (min-width: 768px)
+.content{
+    padding-left: calc(100%/6);
+    padding-right: 13.75%;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+@media screen and (min-width: 540px)
+.content{
+    width: 490px;
+}
+
+@media (min-width: 0)
+.content{
+    width: 100%;
+}

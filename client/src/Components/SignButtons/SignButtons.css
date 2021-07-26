@@ -1,0 +1,54 @@
+.c-button-up {
+    background: #4b53bc !important;
+    color: #fff !important;
+    border-color: #fff;
+    min-width: 230px;
+    padding: 12px;
+    transition-property: background-color,border-color,color;
+    white-space: normal;
+    margin-top: 25px;
+    text-align: center;
+    line-height: 1;
+    font-weight: 600;
+    box-shadow: 0 4px 8px 0 transparent;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all .2s ease-in-out;
+    vertical-align: bottom;
+}
+
+
+.c-button-in{
+    font-size: 15px;
+    position: relative;
+    border: 4px solid #4b53bc;
+    outline: 0;
+    max-width: 374px;
+    padding: 9px 12px 10px 10px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    display: inline-block;
+    text-align: center;
+    line-height: 1;
+    font-weight: 600;
+    box-shadow: 0 4px 8px 0 transparent;
+    cursor: pointer;
+    overflow: hidden;
+    vertical-align: bottom;
+    background: #fff !important;
+    color: #4b53bc !important;
+    min-width: 230px;
+    transition-property: background-color,border-color,color;
+    white-space: normal;
+}
+
+.errorDisplay{
+    padding: auto;
+    margin: 10px;
+    color: red;
+}
+
+.successDisplay{
+    color: green;
+}
+

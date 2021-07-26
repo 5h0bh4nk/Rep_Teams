@@ -1,0 +1,37 @@
+html, body {
+  	height: 100%;
+}
+body {
+	margin: 0;
+	text-align: center;
+	background-color: whitesmoke;
+}
+
+.container2 {
+	padding-top: 30px;
+	margin: auto;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+
+.joinBox{
+	background: rgb(199, 200, 250);
+	width: 30%;
+	height: auto;
+	padding: 20px;
+	min-width: 400px;
+	text-align: center;
+	margin: auto;
+	margin-top: 100px;
+}
+
+.joinBox p{ 
+	margin: 0;
+	font-weight: bold;
+	padding-right: 50px; 
+}
+
+.welcome-text{
+	color: #6e72e7;
+}
