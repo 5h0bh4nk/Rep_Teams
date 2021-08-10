@@ -3,9 +3,9 @@ const http = require('http');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const User = require('./models/user');
-const Chat = require('./models/message');
-const Group = require('./models/groups');
+const User = require('./server/models/user');
+const Chat = require('./server/models/message');
+const Group = require('./server/models/groups');
 
 //to know the current room url
 const path = require("path");
@@ -27,9 +27,9 @@ mongoose.connect(url, {
 var server = http.createServer(app);
 var io = require('socket.io')(server);
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var groupsRouter = require('./routes/groupsRouter');
+var indexRouter = require('./server/routes/index');
+var usersRouter = require('./server/routes/users');
+var groupsRouter = require('./server/routes/groupsRouter');
 
 // maintaining cors ( cross origin resource sharing ) / vulnerabilty
 app.use(cors())
@@ -38,9 +38,9 @@ app.use(bodyParser.json())
 
 // for serving production build
 if(process.env.NODE_ENV==='production'){
-	app.use(express.static(__dirname+"/build"))
+	app.use(express.static(__dirname+"/client/build"))
 	app.get("*", (req, res) => {
-		res.sendFile(path.join(__dirname+"/build/index.html"))
+		res.sendFile(path.join(__dirname+"/client/build/index.html"))
 	})
 }
 app.set('port', (process.env.PORT || 4001))

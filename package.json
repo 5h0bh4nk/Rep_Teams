@@ -46,7 +46,7 @@
     "xss": "^1.0.8"
   },
   "scripts": {
-    "dev": "concurrently -n 'server,client' -c 'red,green'  \"nodemon app.js\" \"NODE_ENV=dev PORT=8000 react-scripts start\"",
+    "dev": "concurrently -n 'server,client' -c 'red,green'  \"nodemon app.js\" \"cd client && NODE_ENV=dev PORT=8000 react-scripts start\"",
     "start": "NODE_ENV=production nodemon app.js",
     "client": "react-scripts start",
     "build": "react-scripts build",

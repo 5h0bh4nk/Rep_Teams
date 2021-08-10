@@ -36,6 +36,9 @@
     "standard": "^14.3.3",
     "xss": "^1.0.8"
   },
+  "devDependencies": {
+    "shave": "^2.5.10"
+  },
   "scripts": {
     "test": "test",
     "start": "react-scripts start",

@@ -9,6 +9,7 @@ import './MessageList.css';
 import io from 'socket.io-client'
 import {baseUrl} from '../../shared/basUrl'
 import {peerConnectionConfig} from '../../Containers/Room/Helpers/peerConnectionConfig';
+import Picker from 'emoji-picker-react';
 
 export default function MessageList(props) {
   const MY_USER_ID = localStorage.getItem("creds").split('"')[3];
@@ -16,7 +17,8 @@ export default function MessageList(props) {
   const [mysocket, setSocket] = useState(null);
   var socketId = null
   const [message,setMessage] = useState('');
-  const [messages, setMessages] = useState([])
+  const [messages, setMessages] = useState([]);
+  const [chosenEmoji, setChosenEmoji] = useState(null);
   const history = useHistory();
   const [roomId, setRoomId] = useState('');
 
@@ -34,6 +36,16 @@ export default function MessageList(props) {
       getMessages();
     })
   },[history])
+
+  const onEmojiClick = (event, emojiObject) => {
+    setChosenEmoji(emojiObject);
+  };
+
+  const emojivisible = () =>{
+    // if(document.getElementById("emojiClass").style.display === "block")
+    // document.getElementById("emojiClass").style.display = "none";
+    // else document.getElementById("emojiClass").style.display = "block";
+  }
 
   
   const getMessages = () => {
@@ -226,7 +238,6 @@ export default function MessageList(props) {
       // Proceed to the next message.
       i += 1;
     }
-
     return tempMessages;
   }
 
@@ -236,6 +247,7 @@ export default function MessageList(props) {
         <div className="start-text-info">Click + option besides Messenger to start a new Conversation</div>
       </div>
     );
+
     else
     return(
       <div className="message-list">
@@ -249,10 +261,11 @@ export default function MessageList(props) {
 
         <div className="message-list-container">{renderMessages()}</div>
         <div className="wait"></div>
-
-
+        {/* <div id="emojiClass" style={{display: 'none'}}><Picker onEmojiClick={onEmojiClick} /></div> */}
+        {/* <Picker onEmojiClick={onEmojiClick} /> */}
         <Compose message={message} sendMessage={sendMessage} handleMessage={handleMessage} rightItems={[
-          <ToolbarButton key="send" icon="ion-ios-send" onClickfn={sendMessage}/>
+          // <ToolbarButton key="send" icon="ion-ios-happy" onClickfn={emojivisible}/>,
+          <ToolbarButton key="send" icon="ion-ios-send" onClickfn={sendMessage}/> 
         ]} />
       </div>
     );

@@ -1,1 +1,0 @@
-export const server_url = (process.env.NODE_ENV === 'production') ? 'https://shubh-meet.herokuapp.com/' : "http://localhost:4001"
