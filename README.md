@@ -1,4 +1,4 @@
-# Welcome to Shubs_Meet
+# Welcome to Shubh_Meet
 
 ![node](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![yarn](https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white)
@@ -9,7 +9,7 @@
 ![git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 ![postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white)
 
-# ![Shubs_Meet](demo.png)
+# ![Shubh_Meet](demo.png)
 
 _A video chat app built from scratch without the use of any public or pre existing APIs/SDKs like firebase/jitsi_
 <br />
@@ -135,16 +135,7 @@ In browser, open [http://localhost:8000](http://localhost:8000)
 
 <br />
 
-## Task sync strategies
 
-https://www.notion.so/998fad9b7fac42c8a2382d70e38f7263?v=645f6919cfcf4c6c918841b96ce22f75
-<br />
-
-## CI/CD of my app using heroku cli
-
-![heroku builds](cicd.jpg)
-
-<br />
 
 ## Code Structure
 
