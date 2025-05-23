@@ -37,10 +37,11 @@
     "shave": "^2.5.10"
   },
   "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "build:production": "REACT_APP_API_URL=$REACT_APP_API_URL react-scripts build",
     "test": "react-scripts test",
-    "start": "NODE_OPTIONS='--openssl-legacy-provider' PORT=8000 REACT_APP_API_URL=http://localhost:4001/api/ react-scripts start",
-    "start:dev": "NODE_OPTIONS='--openssl-legacy-provider' NODE_ENV=development PORT=8000 REACT_APP_API_URL=http://localhost:4001/api react-scripts start",
-    "build": "NODE_OPTIONS='--openssl-legacy-provider' REACT_APP_API_URL=/api/ react-scripts build"
+    "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:4001",
   "author": "Shubhank Kulshrestha",

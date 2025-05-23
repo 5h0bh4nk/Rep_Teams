@@ -29,7 +29,14 @@ mongoose.connect(url, {
 var server = http.createServer(app);
 var io = require('socket.io')(server, {
 	cors: {
-		origin: ["http://localhost:8000", "http://localhost:3000", "http://192.168.1.9:8000", "http://192.168.1.9:3000"],
+		origin: [
+			"http://localhost:8000", 
+			"http://localhost:3000", 
+			"http://192.168.1.9:8000", 
+			"http://192.168.1.9:3000",
+			FRONTEND_URL,
+			process.env.FRONTEND_URL
+		].filter(Boolean),
 		methods: ["GET", "POST"],
 		credentials: true
 	}
@@ -39,16 +46,26 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var groupsRouter = require('./routes/groupsRouter');
 
+// Set port - use environment variable for production
+app.set('port', (process.env.PORT || 4001))
+
+// Get frontend URL from environment
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:8000';
+
 // maintaining cors ( cross origin resource sharing ) / vulnerabilty
 app.use(cors({
-	origin: ["http://localhost:8000", "http://localhost:3000", "http://192.168.1.9:8000", "http://192.168.1.9:3000"],
+	origin: [
+		"http://localhost:8000", 
+		"http://localhost:3000", 
+		"http://192.168.1.9:8000", 
+		"http://192.168.1.9:3000",
+		FRONTEND_URL,
+		process.env.FRONTEND_URL
+	].filter(Boolean),
 	methods: ["GET", "POST", "PUT", "DELETE"],
 	credentials: true
 }));
 app.use(bodyParser.json())
-
-// Set port
-app.set('port', (process.env.PORT || 4001))
 
 // for serving production build (if needed)
 if(process.env.NODE_ENV==='production'){

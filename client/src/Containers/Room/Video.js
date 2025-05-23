@@ -18,10 +18,25 @@ import 'bootstrap/dist/css/bootstrap.css'
 import "./Video.css"
 import {peerConnectionConfig} from './Helpers/peerConnectionConfig';
 
-// Use a safer way to determine server URL - support both localhost and IP access
-const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === '192.168.1.9';
-const SERVER_BASE = window.location.hostname === '192.168.1.9' ? 'http://192.168.1.9:4001' : 'http://localhost:4001';
-const server_url = isDevelopment ? SERVER_BASE : 'https://shubh-meet.herokuapp.com/';
+// Server URL configuration for production deployment
+const isDevelopment = window.location.hostname === 'localhost' || 
+                     window.location.hostname === '127.0.0.1' || 
+                     window.location.hostname === '192.168.1.9';
+
+let server_url;
+if (process.env.REACT_APP_BACKEND_URL) {
+    server_url = process.env.REACT_APP_BACKEND_URL;
+} else if (isDevelopment) {
+    const SERVER_BASE = window.location.hostname === '192.168.1.9' ? 
+                       'http://192.168.1.9:4001' : 
+                       'http://localhost:4001';
+    server_url = SERVER_BASE;
+} else {
+    // Production - use same domain with secure protocol
+    server_url = window.location.protocol === 'https:' ? 
+                `https://${window.location.host}` : 
+                `http://${window.location.host}`;
+}
 
 var connections = {}
 

@@ -158,4 +158,29 @@ This project is licensed under the ISC License.
 2. Create your feature branch
 3. Commit your changes
 4. Push to the branch
-5. Create a Pull Request 
+5. Create a Pull Request
+
+# Shubh Meet Backend Deployment
+
+## Environment Variables Required
+
+```bash
+NODE_ENV=production
+PORT=4001
+MONGO_URL=mongodb+srv://username:password@cluster.mongodb.net/shubhmeet
+JWT_SECRET=your-super-secret-jwt-key-here
+FRONTEND_URL=https://your-frontend-domain.netlify.app
+```
+
+## Railway Deployment
+
+1. Connect your GitHub repository to Railway
+2. Set environment variables in Railway dashboard
+3. Deploy from the `server` directory
+
+## MongoDB Atlas Setup
+
+1. Create account at mongodb.com/atlas
+2. Create a new cluster
+3. Add connection string to MONGO_URL environment variable
+4. Whitelist Railway's IP addresses or use 0.0.0.0/0 for all IPs 
