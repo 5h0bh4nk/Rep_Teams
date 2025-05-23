@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-const whitelist = ['http://localhost:3001','http://localhost:5000','http://localhost:3000', 'https://localhost:3443','https://localhost:8000','http://localhost:8000','https://shubh-meet.herokuapp.com/'];
+const whitelist = ['http://localhost:3001','http://localhost:5000','http://localhost:3000', 'https://localhost:3443','https://localhost:8000','http://localhost:8000','http://192.168.1.9:8000','http://192.168.1.9:3000','https://shubh-meet.herokuapp.com/'];
 
 var corsOptionDelegate = (req,callback) =>{
     var corsOption;

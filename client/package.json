@@ -1,7 +1,7 @@
 {
-  "name": "client",
+  "name": "shubh-meet-frontend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Frontend for Shubh Meet - Modern video conferencing application",
   "main": "index.js",
   "dependencies": {
     "@material-ui/core": "^4.9.7",
@@ -14,7 +14,6 @@
     "bootstrap": "^5.0.2",
     "emoji-picker-react": "^3.4.8",
     "moment": "^2.29.1",
-    "nodemon": "^2.0.2",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.0",
     "react-css-grid": "^2.0.0-0",
@@ -22,7 +21,6 @@
     "react-flexbox-grid": "^2.1.2",
     "react-grid-layout": "^0.18.3",
     "react-grid-system": "^6.3.0",
-    "react-native": "^0.62.1",
     "react-redux": "^7.2.4",
     "react-redux-form": "^1.16.14",
     "react-router": "^5.1.2",
@@ -33,21 +31,33 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "socket.io-client": "^2.3.0",
-    "standard": "^14.3.3",
     "xss": "^1.0.8"
   },
   "devDependencies": {
     "shave": "^2.5.10"
   },
   "scripts": {
-    "test": "test",
-    "start": "NODE_OPTIONS='--openssl-legacy-provider' PORT=8000 react-scripts start",
-    "start:dev": "NODE_OPTIONS='--openssl-legacy-provider' NODE_ENV=dev PORT=8000 react-scripts start",
-    "build": "NODE_OPTIONS='--openssl-legacy-provider' react-scripts build"
+    "test": "react-scripts test",
+    "start": "NODE_OPTIONS='--openssl-legacy-provider' PORT=8000 REACT_APP_API_URL=http://localhost:4001/api/ react-scripts start",
+    "start:dev": "NODE_OPTIONS='--openssl-legacy-provider' NODE_ENV=development PORT=8000 REACT_APP_API_URL=http://localhost:4001/api react-scripts start",
+    "build": "NODE_OPTIONS='--openssl-legacy-provider' REACT_APP_API_URL=/api/ react-scripts build"
   },
-  "author": "",
+  "proxy": "http://localhost:4001",
+  "author": "Shubhank Kulshrestha",
   "license": "ISC",
   "engines": {
     "node": ">=12.16.3"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

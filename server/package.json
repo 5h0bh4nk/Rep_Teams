@@ -1,0 +1,40 @@
+{
+  "name": "shubh-meet-backend",
+  "version": "1.0.0",
+  "description": "Backend server for Shubh Meet - Video conferencing application",
+  "main": "app.js",
+  "scripts": {
+    "start": "NODE_ENV=production node app.js",
+    "dev": "NODE_ENV=development nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "http-errors": "^2.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.0",
+    "passport": "^0.4.1",
+    "passport-facebook-token": "^4.0.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local-mongoose": "^6.1.0",
+    "socket.io": "^2.3.0",
+    "xss": "^1.0.8"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "engines": {
+    "node": ">=12.16.3"
+  },
+  "author": "Shubhank Kulshrestha",
+  "license": "ISC",
+  "keywords": [
+    "video-conference",
+    "webrtc",
+    "socket.io",
+    "express",
+    "mongodb"
+  ]
+}

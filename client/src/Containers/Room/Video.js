@@ -17,8 +17,11 @@ import Modal from 'react-bootstrap/Modal'
 import 'bootstrap/dist/css/bootstrap.css'
 import "./Video.css"
 import {peerConnectionConfig} from './Helpers/peerConnectionConfig';
-const server_url = process.env.NODE_ENV === 'production' ? 'https://shubh-meet.herokuapp.com/' : "http://localhost:4001"
 
+// Use a safer way to determine server URL - support both localhost and IP access
+const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === '192.168.1.9';
+const SERVER_BASE = window.location.hostname === '192.168.1.9' ? 'http://192.168.1.9:4001' : 'http://localhost:4001';
+const server_url = isDevelopment ? SERVER_BASE : 'https://shubh-meet.herokuapp.com/';
 
 var connections = {}
 
@@ -50,7 +53,10 @@ class Video extends Component {
 			path: window.location.href.split("/")
 		}
 		connections = {}
+	}
 
+	componentDidMount() {
+		// Initialize permissions after component mounts
 		this.getPermissions()
 	}
 
@@ -75,7 +81,9 @@ class Video extends Component {
 				navigator.mediaDevices.getUserMedia({ video: this.videoAvailable, audio: this.audioAvailable })
 					.then((stream) => {
 						window.localStream = stream
-						this.localVideoref.current.srcObject = stream
+						if (this.localVideoref.current) {
+							this.localVideoref.current.srcObject = stream
+						}
 					})
 					.then((stream) => {})
 					.catch((e) => console.error(e))
@@ -103,9 +111,11 @@ class Video extends Component {
 				.catch((e) => console.log(e))
 		} else {
 			try {
-				// else stop all tracks
-				let tracks = this.localVideoref.current.srcObject.getTracks()
-				tracks.forEach(track => track.stop())
+				// else stop all tracks - only if video element and srcObject exist
+				if (this.localVideoref.current && this.localVideoref.current.srcObject) {
+					let tracks = this.localVideoref.current.srcObject.getTracks()
+					tracks.forEach(track => track.stop())
+				}
 			} catch (e) {console.error(e)}
 		}
 	}
@@ -116,7 +126,9 @@ class Video extends Component {
 		} catch(e) { console.log(e) }
 
 		window.localStream = stream
-		this.localVideoref.current.srcObject = stream
+		if (this.localVideoref.current) {
+			this.localVideoref.current.srcObject = stream
+		}
 
 		for (let id in connections) {
 			if (id === socketId) continue
@@ -138,13 +150,17 @@ class Video extends Component {
 				audio: false,
 			}, () => {
 				try {
-					let tracks = this.localVideoref.current.srcObject.getTracks()
-					tracks.forEach(track => track.stop())
+					if (this.localVideoref.current && this.localVideoref.current.srcObject) {
+						let tracks = this.localVideoref.current.srcObject.getTracks()
+						tracks.forEach(track => track.stop())
+					}
 				} catch(e) { console.log(e) }
 
 				let blackSilence = (...args) => new MediaStream([this.black(...args), this.silence()])
 				window.localStream = blackSilence()
-				this.localVideoref.current.srcObject = window.localStream
+				if (this.localVideoref.current) {
+					this.localVideoref.current.srcObject = window.localStream
+				}
 
 				for (let id in connections) {
 					connections[id].addStream(window.localStream)
@@ -185,7 +201,9 @@ class Video extends Component {
 		} catch(e) { console.log(e) }
 
 		window.localStream = stream
-		this.localVideoref.current.srcObject = stream
+		if (this.localVideoref.current) {
+			this.localVideoref.current.srcObject = stream
+		}
 
 		for (let id in connections) {
 			if (id === socketId) continue;
@@ -207,13 +225,17 @@ class Video extends Component {
 				screen: false,
 			}, () => {
 				try {
-					let tracks = this.localVideoref.current.srcObject.getTracks()
-					tracks.forEach(track => track.stop())
+					if (this.localVideoref.current && this.localVideoref.current.srcObject) {
+						let tracks = this.localVideoref.current.srcObject.getTracks()
+						tracks.forEach(track => track.stop())
+					}
 				} catch(e) { console.log(e) }
 
 				let blackSilence = (...args) => new MediaStream([this.black(...args), this.silence()])
 				window.localStream = blackSilence()
-				this.localVideoref.current.srcObject = window.localStream
+				if (this.localVideoref.current) {
+					this.localVideoref.current.srcObject = window.localStream
+				}
 
 				this.getUserMedia()
 			})
@@ -388,8 +410,10 @@ class Video extends Component {
 
 	handleEndCall = () => {
 		try {
-			let tracks = this.localVideoref.current.srcObject.getTracks()
-			tracks.forEach(track => track.stop())
+			if (this.localVideoref.current && this.localVideoref.current.srcObject) {
+				let tracks = this.localVideoref.current.srcObject.getTracks()
+				tracks.forEach(track => track.stop())
+			}
 		} catch (e) {}
 		window.location.href = "/conversations"
 	}
@@ -449,17 +473,17 @@ class Video extends Component {
 		return matchChrome !== null
 	}
 
-	onKeyUp(event) {
+	onKeyUp = (event) => {
 		if (event.charCode === 13) {
 		  this.sendMessage();
 		}
-		else this.handleMessage();
+		else this.handleMessage(event);
 	}
 
 	render() {
 		if(!this.isChrome()){
 			return (
-				<div class="uncompatible">
+				<div className="uncompatible">
 					<h1>Sorry, this works only with Google Chrome</h1>
 				</div>
 			)
@@ -522,7 +546,16 @@ class Video extends Component {
 								)) : <p>No message yet</p>}
 							</Modal.Body>
 							<Modal.Footer className="div-send-msg">
-								<Input placeholder="Message" value={this.state.message} onChange={e => this.handleMessage(e)}/>
+								<Input 
+									placeholder="Message" 
+									value={this.state.message} 
+									onChange={e => this.handleMessage(e)}
+									onKeyPress={(e) => {
+										if (e.key === 'Enter') {
+											this.sendMessage();
+										}
+									}}
+								/>
 								<Button variant="contained" color="primary" onClick={this.sendMessage}>Send</Button>
 							</Modal.Footer>
 						</Modal>

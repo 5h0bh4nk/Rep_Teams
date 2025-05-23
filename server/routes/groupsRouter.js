@@ -2,8 +2,8 @@ var express = require('express');
 var User = require('../models/user');
 var Groups = require('../models/groups');
 var groupRouter = express.Router();
-var authenticate = require('../../authenticate');
 var cors = require('./cors');
+var authenticate = require('../authenticate');
 
 
 groupRouter.route('/')

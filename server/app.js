@@ -3,9 +3,9 @@ const http = require('http');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const User = require('./server/models/user');
-const Chat = require('./server/models/message');
-const Group = require('./server/models/groups');
+const User = require('./models/user');
+const Chat = require('./models/message');
+const Group = require('./models/groups');
 const createError = require('http-errors');
 
 //to know the current room url
@@ -14,6 +14,7 @@ var xss = require("xss");
 var passport = require('passport');
 const cors=require('cors');
 var config = require('./config');
+var authenticate = require('./authenticate');
 
 const url = config.mongoUrl;
 mongoose.connect(url, {
@@ -26,25 +27,36 @@ mongoose.connect(url, {
 .catch((error) => console.log(error.message));
 
 var server = http.createServer(app);
-var io = require('socket.io')(server);
+var io = require('socket.io')(server, {
+	cors: {
+		origin: ["http://localhost:8000", "http://localhost:3000", "http://192.168.1.9:8000", "http://192.168.1.9:3000"],
+		methods: ["GET", "POST"],
+		credentials: true
+	}
+});
 
-var indexRouter = require('./server/routes/index');
-var usersRouter = require('./server/routes/users');
-var groupsRouter = require('./server/routes/groupsRouter');
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var groupsRouter = require('./routes/groupsRouter');
 
 // maintaining cors ( cross origin resource sharing ) / vulnerabilty
-app.use(cors())
+app.use(cors({
+	origin: ["http://localhost:8000", "http://localhost:3000", "http://192.168.1.9:8000", "http://192.168.1.9:3000"],
+	methods: ["GET", "POST", "PUT", "DELETE"],
+	credentials: true
+}));
 app.use(bodyParser.json())
 
+// Set port
+app.set('port', (process.env.PORT || 4001))
 
-// for serving production build
+// for serving production build (if needed)
 if(process.env.NODE_ENV==='production'){
-	app.use(express.static(__dirname+"/client/build"))
+	app.use(express.static(path.join(__dirname, "../client/build")))
 	app.get("*", (req, res) => {
-		res.sendFile(path.join(__dirname+"/client/build/index.html"))
+		res.sendFile(path.join(__dirname, "../client/build/index.html"))
 	})
 }
-app.set('port', (process.env.PORT || 4001))
 
 // preventing xss attacks / vulnerability tag
 const sanitizeString = (str) => {
@@ -57,12 +69,12 @@ var connections = {}
 // messages across the rooms
 var messages = {}
 
-
-
 var timeOnline = {}
 
 // socket io for handling messages of rooms
 io.on('connection', (socket) => {
+	console.log('User connected:', socket.id);
+	
 	// socket = client
 	// adding connection
 	socket.on('join-call', (data) => {
@@ -197,6 +209,7 @@ io.on('connection', (socket) => {
 
 	// on disconnection of user
 	socket.on('disconnect', () => {
+		console.log('User disconnected:', socket.id);
 		var diffTime = Math.abs(timeOnline[socket.id] - new Date());
 		var key;
 
@@ -229,10 +242,19 @@ io.on('connection', (socket) => {
 
 app.use(passport.initialize());
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/groups', groupsRouter);
+// API Routes
+app.use('/api', indexRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/groups', groupsRouter);
 
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+	res.json({ 
+		status: 'OK', 
+		message: 'Shubh Meet Backend Server is running',
+		timestamp: new Date().toISOString()
+	});
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -256,5 +278,7 @@ app.use(function(err, req, res, next) {
 });
 
 server.listen(app.get('port'), () => {
-	console.log("listening on", app.get('port'))
-})
+	console.log(`🚀 Shubh Meet Backend Server listening on port ${app.get('port')}`);
+	console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+	console.log(`📡 Socket.IO enabled with CORS for frontend`);
+}); 

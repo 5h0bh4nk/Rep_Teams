@@ -1,263 +1,277 @@
-# Welcome to Shubh_Meet
+# 🎥 Shubh Meet
 
-![node](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
-![yarn](https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white)
-![express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
-![react](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
-![mongo](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
-![git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
-![postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white)
+A modern, full-stack video conferencing application with Microsoft Teams-inspired design. Built with React, Express.js, Socket.IO, MongoDB, and WebRTC.
 
-# ![Shubh_Meet](demo.png)
+## 🚀 Features
 
-_A video chat app built from scratch without the use of any public or pre existing APIs/SDKs like firebase/jitsi_
-<br />
+- **🎬 HD Video Conferencing**: WebRTC-powered peer-to-peer video calls
+- **💬 Real-time Chat**: Instant messaging during video calls
+- **🔐 Secure Authentication**: JWT-based user authentication
+- **📱 Responsive Design**: Works on desktop, tablet, and mobile
+- **🎨 Modern UI**: Microsoft Teams-inspired purple theme
+- **⚡ Real-time Communication**: Socket.IO for instant updates
+- **🏢 Room Management**: Create and join meeting rooms with ease
+- **📊 User Dashboard**: Personal dashboard with meeting history
 
-Video link : [youtube](https://youtu.be/OFZAdckRr3I)<br />
-Demo link : [shubh-meet](https://shubh-meet.herokuapp.com)
+## 🏗️ Architecture
 
-## Features
-
-- Instantly create a new room or join a new one 💬
-- Video call with multiple people in real-time 📹
-- Mute audio/video 🙊
-- Share screen during video call 💻
-- Chat before starting a video call by creating a new room in conversations tab 😇
-- Chat with your friends during a video call 😜
-- View the chats that happened in the video meet before you even joined to catch up with others if u are late 🤙
-- Chat notifications 📸
-- Continue your chat after the video call also ( includes your chats during the call ) 🤭
-- Authentication support using passport and JWT tokens to prevent unknown users 🙌
-- Simple and intuitive UI 😍
-- XSS sanitization of chats (security 😉)
-  <br /> <br />
-
-## TechStacks / Modules used
-
-- ReactJS - (reactstrap , materailUI, etc)
-- Redux
-- Passport auth
-- Express
-- MongoDB
-- SocketIO
-- WebRTC
-- and others
-
-<br />
-
-## API endpoints
-
-- /users (admin only)
-- /users/login
-- /users/signup
-- /facebook/token (fb auth)
-- /users/checkJWTToken
-- /groups (to fetch groups of user)
-- /groups/:roomId ( to fetch messages )
-
-<br />
-
-## Requirements
-
-### To be able to run this app locally :
-
-- you need to have Nodejs installed
-- you need to have node package manager , npm or yarn( preferable )
-- It currently uses a free and limited storage mongoDB cluster . To use local database or your database , change the mongoUrl in [config.js](config.js) . ( Use 'localhost:27017' for using local mongoDB and execute `mongo run` command on your terminal before using ) .
-  <br /><br />
-
-## Installation / Local Setup
-
-### **Running locally ( production server )**
-
-#### `Step 1` - clone the repo
-
-```bash
-$ git clone https://github.com/5h0bh4nk/SHUBH_TEAMS_
-```
-
-#### `Step 2` - cd in the repo
-
-```bash
-$ cd SHUBH_TEAMS_
-```
-
-#### `Step 3` - install dependencies
-
-```bash
-$ yarn install
-```
-
-#### `Step 4` - Build the react app
-
-```bash
-$ yarn build
-```
-
-#### `Step 5` - run application
-
-```bash
-$ yarn start
-```
-
-In browser, open [http://localhost:4001](http://localhost:4001)
-
-<br />
-
-### **Running locally ( Development server )**
-
-#### `Step 1` - clone the repo
-
-```bash
-$ git clone https://github.com/5h0bh4nk/SHUBH_TEAMS_
-```
-
-#### `Step 2` - cd in the repo
-
-```bash
-$ cd SHUBH_TEAMS_
-```
-
-#### `Step 3` - install dependencies
-
-```bash
-$ yarn install
-```
-
-#### `Step 4` - run application
-
-```bash
-$ yarn dev
-```
-
-In browser, open [http://localhost:8000](http://localhost:8000)
-
-<br />
-
-
-
-## Code Structure
-
-```bash
-- 📂 __CODE STRUCTURE___
-   - 📄 [README.md](README.md)
-   - 📄 [app.js](app.js)
-   - 📄 [authenticate.js](authenticate.js)
-   - 📄 [cicd.jpg](cicd.jpg)
-   - 📂 __client__
-     - 📄 [package.json](client/package.json)
-     - 📂 __public__
-       - 📄 [icon.png](client/public/icon.png)
-       - 📄 [index.html](client/public/index.html)
-       - 📄 [manifest.json](client/public/manifest.json)
-       - 📄 [package.json](client/public/package.json)
-       - 📄 [robots.txt](client/public/robots.txt)
-     - 📂 __src__
-       - 📄 [App.js](client/src/App.js)
-       - 📂 __Components__
-         - 📂 __ContactBar__
-           - 📄 [ContactBar.css](client/src/Components/ContactBar/ContactBar.css)
-           - 📄 [ContactBar.js](client/src/Components/ContactBar/ContactBar.js)
-         - 📂 __Header__
-           - 📄 [Header.css](client/src/Components/Header/Header.css)
-           - 📄 [Header.js](client/src/Components/Header/Header.js)
-         - 📂 __Jumbotron__
-           - 📄 [jumbotron.css](client/src/Components/Jumbotron/jumbotron.css)
-           - 📄 [jumbotron.js](client/src/Components/Jumbotron/jumbotron.js)
-         - 📂 __Navbar__
-           - 📄 [Navbar.css](client/src/Components/Navbar/Navbar.css)
-           - 📄 [Navbar.js](client/src/Components/Navbar/Navbar.js)
-         - 📂 __SignButtons__
-           - 📄 [SignButtons.css](client/src/Components/SignButtons/SignButtons.css)
-           - 📄 [SignButtons.js](client/src/Components/SignButtons/SignButtons.js)
-       - 📂 __Containers__
-         - 📂 __Dashboard__
-           - 📄 [Dashboard.css](client/src/Containers/Dashboard/Dashboard.css)
-           - 📄 [Dashboard.js](client/src/Containers/Dashboard/Dashboard.js)
-         - 📂 __Homepage__
-           - 📄 [Homepage.css](client/src/Containers/Homepage/Homepage.css)
-           - 📄 [Homepage.js](client/src/Containers/Homepage/Homepage.js)
-         - 📂 __Login__
-           - 📄 [Login.css](client/src/Containers/Login/Login.css)
-           - 📄 [Login.js](client/src/Containers/Login/Login.js)
-         - 📂 __MeetStart__
-           - 📄 [Home.css](client/src/Containers/MeetStart/Home.css)
-           - 📄 [Home.js](client/src/Containers/MeetStart/Home.js)
-         - 📂 __Room__
-           - 📂 __Helpers__
-             - 📄 [peerConnectionConfig.js](client/src/Containers/Room/Helpers/peerConnectionConfig.js)
-             - 📄 [server\_url.js](client/src/Containers/Room/Helpers/server_url.js)
-           - 📄 [Video.css](client/src/Containers/Room/Video.css)
-           - 📄 [Video.js](client/src/Containers/Room/Video.js)
-         - 📂 __Signup__
-           - 📄 [Signup.css](client/src/Containers/Signup/Signup.css)
-           - 📄 [Signup.js](client/src/Containers/Signup/Signup.js)
-       - 📂 __Messenger__
-         - 📂 __App__
-           - 📄 [App.test.js](client/src/Messenger/App/App.test.js)
-           - 📄 [index.js](client/src/Messenger/App/index.js)
-         - 📂 __Compose__
-           - 📄 [Compose.css](client/src/Messenger/Compose/Compose.css)
-           - 📄 [index.js](client/src/Messenger/Compose/index.js)
-         - 📂 __ConversationList__
-           - 📄 [ConversationList.css](client/src/Messenger/ConversationList/ConversationList.css)
-           - 📄 [Dropdown.js](client/src/Messenger/ConversationList/Dropdown.js)
-           - 📄 [index.js](client/src/Messenger/ConversationList/index.js)
-         - 📂 __ConversationListItem__
-           - 📄 [ConversationListItem.css](client/src/Messenger/ConversationListItem/ConversationListItem.css)
-           - 📄 [index.js](client/src/Messenger/ConversationListItem/index.js)
-         - 📂 __ConversationSearch__
-           - 📄 [ConversationSearch.css](client/src/Messenger/ConversationSearch/ConversationSearch.css)
-           - 📄 [index.js](client/src/Messenger/ConversationSearch/index.js)
-         - 📂 __Message__
-           - 📄 [Message.css](client/src/Messenger/Message/Message.css)
-           - 📄 [index.js](client/src/Messenger/Message/index.js)
-         - 📂 __MessageList__
-           - 📄 [MessageList.css](client/src/Messenger/MessageList/MessageList.css)
-           - 📄 [index.js](client/src/Messenger/MessageList/index.js)
-         - 📂 __Messenger__
-           - 📄 [Messenger.css](client/src/Messenger/Messenger/Messenger.css)
-           - 📄 [Messenger.js](client/src/Messenger/Messenger/Messenger.js)
-           - 📄 [index.js](client/src/Messenger/Messenger/index.js)
-         - 📂 __Toolbar__
-           - 📄 [Toolbar.css](client/src/Messenger/Toolbar/Toolbar.css)
-           - 📄 [index.js](client/src/Messenger/Toolbar/index.js)
-         - 📂 __ToolbarButton__
-           - 📄 [ToolbarButton.css](client/src/Messenger/ToolbarButton/ToolbarButton.css)
-           - 📄 [index.js](client/src/Messenger/ToolbarButton/index.js)
-       - 📄 [index.js](client/src/index.js)
-       - 📂 __redux__
-         - 📄 [ActionCreators.js](client/src/redux/ActionCreators.js)
-         - 📄 [ActionTypes.js](client/src/redux/ActionTypes.js)
-         - 📄 [auth.js](client/src/redux/auth.js)
-         - 📄 [configureStore.js](client/src/redux/configureStore.js)
-         - 📄 [forms.js](client/src/redux/forms.js)
-       - 📄 [serviceWorker.js](client/src/serviceWorker.js)
-       - 📂 __shared__
-         - 📄 [basUrl.js](client/src/shared/basUrl.js)
-         - 📂 __images__
-           - 📄 [demo.webp](client/src/shared/images/demo.webp)
-           - 📄 [logo\-icon.png](client/src/shared/images/logo-icon.png)
-           - 📄 [logo\-white.png](client/src/shared/images/logo-white.png)
-           - 📄 [mslogo.svg](client/src/shared/images/mslogo.svg)
-         - 📂 __storage__
-           - 📄 [data.js](client/src/shared/storage/data.js)
-   - 📄 [config.js](config.js)
-   - 📄 [demo.png](demo.png)
-   - 📄 [list.md](list.md)
-   - 📄 [package.json](package.json)
-   - 📄 [procfile](procfile)
-   - 📂 __server__
-     - 📂 __models__
-       - 📄 [groups.js](server/models/groups.js)
-       - 📄 [message.js](server/models/message.js)
-       - 📄 [user.js](server/models/user.js)
-     - 📂 __routes__
-       - 📄 [cors.js](server/routes/cors.js)
-       - 📄 [groupsRouter.js](server/routes/groupsRouter.js)
-       - 📄 [index.js](server/routes/index.js)
-       - 📄 [users.js](server/routes/users.js)
-
+This is a **separated monorepo** with independently deployable frontend and backend:
 
 ```
+shubh-meet/
+├── client/          # React Frontend (Port 8000)
+├── server/          # Express Backend (Port 4001)
+├── package.json     # Workspace coordinator
+└── README.md        # This file
+```
+
+### Frontend (React)
+- **Framework**: React 16.13 with Redux
+- **Styling**: Bootstrap 5 + Custom CSS
+- **Real-time**: Socket.IO Client
+- **Routing**: React Router
+- **Build Tool**: Create React App
+
+### Backend (Express)
+- **Framework**: Express.js with Node.js
+- **Database**: MongoDB with Mongoose
+- **Authentication**: Passport.js + JWT
+- **Real-time**: Socket.IO Server
+- **Security**: CORS, XSS protection
+
+## 🚀 Quick Start
+
+### Prerequisites
+- **Node.js** >= 12.16.3
+- **MongoDB** (running locally or remote)
+- **Git**
+
+### 1. Clone Repository
+```bash
+git clone https://github.com/your-username/shubh-meet.git
+cd shubh-meet
+```
+
+### 2. Install All Dependencies
+```bash
+npm run install:all
+```
+
+### 3. Set Up Environment Variables
+
+**Backend Configuration** (`server/.env`):
+```env
+NODE_ENV=development
+PORT=4001
+MONGODB_URI=mongodb://localhost:27017/video
+JWT_SECRET=your-secret-key-here
+```
+
+**Frontend Configuration** (`client/.env.local`):
+```env
+REACT_APP_API_URL=http://localhost:4001/api
+```
+
+### 4. Start Development Servers
+```bash
+# Start both frontend and backend simultaneously
+npm run dev
+
+# Or start them separately:
+npm run start:server  # Backend on http://localhost:4001
+npm run start:client  # Frontend on http://localhost:8000
+```
+
+### 5. Open Application
+Visit [http://localhost:8000](http://localhost:8000) in your browser.
+
+## 📦 Available Scripts
+
+### Root Level Commands
+- `npm run install:all` - Install dependencies for both client and server
+- `npm run dev` - Start both frontend and backend in development mode
+- `npm run start:both` - Same as dev
+- `npm run start:client` - Start only frontend
+- `npm run start:server` - Start only backend
+- `npm run build` - Build frontend for production
+- `npm run test` - Run tests for both client and server
+- `npm run clean` - Remove all node_modules directories
+
+### Frontend Commands (from `/client`)
+```bash
+cd client
+npm start          # Development server
+npm run build      # Production build
+npm test          # Run tests
+```
+
+### Backend Commands (from `/server`)
+```bash
+cd server
+npm run dev       # Development with nodemon
+npm start         # Production server
+npm test         # Run tests
+```
+
+## 🌐 API Endpoints
+
+### Authentication
+- `POST /api/users/signup` - User registration
+- `POST /api/users/login` - User login
+- `GET /api/users/checkJWTToken` - Token validation
+
+### Groups & Rooms
+- `GET /api/groups` - Get user groups
+- `POST /api/groups` - Create new group
+- `GET /api/groups/:groupId` - Get group details
+
+### Health Check
+- `GET /api/health` - Server status
+
+## 🔌 Socket.IO Events
+
+### Client → Server
+- `join-call` - Join video conference room
+- `signal` - WebRTC signaling data
+- `chat-message` - Send chat message
+
+### Server → Client
+- `user-joined` - User joined the room
+- `user-left` - User left the room
+- `chat-message` - Receive chat message
+- `signal` - WebRTC signaling response
+
+## 🎨 Design System
+
+### Color Palette
+- **Primary**: `#6264a7` (Microsoft Teams Purple)
+- **Success**: `#107c10`
+- **Error**: `#d13438`
+- **Text**: `#2c3e50`
+- **Background**: `#f8faff` to `#e8f2ff`
+
+### Key Components
+- **Modern Button System**: Hover animations with translateY effects
+- **Card-based Layout**: Shadow and gradient designs
+- **Modal System**: Backdrop blur with slide animations
+- **Responsive Grid**: Flexbox-based responsive layout
+
+## 🔒 Security Features
+
+- **XSS Protection**: Input sanitization using xss library
+- **CORS Configuration**: Controlled cross-origin access
+- **JWT Authentication**: Secure token-based authentication
+- **Input Validation**: All user inputs validated and sanitized
+- **Environment Variables**: Sensitive data stored in environment files
+
+## 🌍 Deployment
+
+### Frontend Deployment (Netlify/Vercel)
+```bash
+cd client
+npm run build
+# Deploy the 'build' folder
+```
+
+### Backend Deployment (Heroku/DigitalOcean)
+```bash
+cd server
+# Set environment variables in your hosting platform
+# Deploy the server directory
+```
+
+### Environment Variables for Production
+**Backend**:
+```env
+NODE_ENV=production
+PORT=4001
+MONGODB_URI=your_mongodb_atlas_url
+JWT_SECRET=your_production_secret
+```
+
+**Frontend**:
+```env
+REACT_APP_API_URL=https://your-backend-domain.com/api
+```
+
+## 📱 Browser Support
+
+- **Chrome**: Latest 2 versions ✅
+- **Firefox**: Latest 2 versions ✅
+- **Safari**: Latest 2 versions ✅
+- **Edge**: Latest 2 versions ✅
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+1. **"Cannot connect to backend"**
+   - Ensure backend server is running on port 4001
+   - Check REACT_APP_API_URL in frontend environment
+
+2. **"Database connection failed"**
+   - Verify MongoDB is running
+   - Check MONGODB_URI in backend environment
+
+3. **"Socket.IO connection errors"**
+   - Ensure CORS is properly configured
+   - Check browser console for WebSocket errors
+
+4. **"Build fails"**
+   - Clear node_modules: `npm run clean`
+   - Reinstall dependencies: `npm run install:all`
+   - Check Node.js version compatibility
+
+### Debug Mode
+Enable debug logging in development:
+```bash
+# Backend
+DEBUG=* npm run dev
+
+# Frontend
+REACT_APP_DEBUG_MODE=true npm start
+```
+
+## 🛠️ Development
+
+### Code Structure
+- **Frontend**: Component-based React architecture
+- **Backend**: RESTful API with Express.js
+- **Database**: MongoDB with Mongoose ODM
+- **Real-time**: Socket.IO for bidirectional communication
+
+### Adding New Features
+1. **Frontend**: Add components in `/client/src/Components`
+2. **Backend**: Add routes in `/server/routes`
+3. **Database**: Add models in `/server/models`
+
+## 📄 License
+
+This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
+
+## 👥 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📞 Support
+
+If you encounter any issues or have questions:
+
+1. Check the [Troubleshooting](#-troubleshooting) section
+2. Search existing [GitHub Issues](https://github.com/your-username/shubh-meet/issues)
+3. Create a new issue with detailed information
+
+## ⭐ Acknowledgments
+
+- Microsoft Teams for design inspiration
+- WebRTC community for real-time communication protocols
+- Socket.IO team for excellent real-time framework
+- React and Express.js communities
+
+---
+
+**Made with ❤️ by Shubhank Kulshrestha**
