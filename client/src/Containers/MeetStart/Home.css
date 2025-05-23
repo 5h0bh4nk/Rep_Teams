@@ -15,6 +15,25 @@ body {
 	text-align: center;
 }
 
+/* Welcome text styling */
+.welcome-text {
+	color: #ffffff !important;
+	font-size: 32px !important;
+	font-weight: 700 !important;
+	margin-bottom: 16px !important;
+	text-shadow: 0 2px 4px rgba(0,0,0,0.5) !important;
+}
+
+/* Subtitle text styling */
+.container2 > div:first-child p {
+	color: #ffffff !important;
+	font-size: 18px !important;
+	font-weight: 500 !important;
+	margin-bottom: 40px !important;
+	line-height: 1.5 !important;
+	text-shadow: 0 1px 2px rgba(0,0,0,0.3) !important;
+}
+
 .joinBox{
 	background: rgb(199, 200, 250);
 	width: 30%;
@@ -30,8 +49,4 @@ body {
 	margin: 0;
 	font-weight: bold;
 	padding-right: 50px; 
-}
-
-.welcome-text{
-	color: #6e72e7;
 }

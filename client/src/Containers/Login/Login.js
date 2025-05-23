@@ -1,45 +1,147 @@
-import {React, useState} from 'react';
-import { Button, Modal, ModalHeader, ModalBody, Input, Label, Form, FormGroup } from 'reactstrap';
+import {React, useState, useEffect} from 'react';
 import './Login.css'
 
 function Login(props) {
-
-    // can be changed to false in case u want new values enter every time
-    const [unmountOnClose] = useState(false);
     const [formdata, setformData] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
 
-    const handleChange = (e) =>{
+    useEffect(() => {
+        // Reset form data when modal opens
+        setformData({});
+        setIsLoading(false);
+        
+        // Cleanup function
+        return () => {
+            setIsLoading(false);
+        };
+    }, [props.login]);
+
+    const handleChange = (e) => {
         setformData({...formdata, [e.target.name] : e.target.value});
     }
 
-    const handleLogin = (event) =>{
+    const handleLogin = async (event) => {
         event.preventDefault();
-        toggleModal();
-        props.loginUser(formdata);
+        
+        if (isLoading) return; // Prevent double submission
+        
+        setIsLoading(true);
+        
+        try {
+            await props.loginUser(formdata);
+            // Only close modal on successful login
+            if (props.auth?.isAuthenticated) {
+                toggleModal();
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+        } finally {
+            setIsLoading(false);
+        }
     }
   
-    const toggleModal = () => props.setLogin(!props.login);
+    const toggleModal = () => {
+        if (!isLoading) { // Prevent closing during loading
+            props.setLogin(!props.login);
+        }
+    };
+
+    // Handle escape key
+    useEffect(() => {
+        const handleEscape = (e) => {
+            if (e.key === 'Escape' && !isLoading) {
+                toggleModal();
+            }
+        };
+
+        if (props.login) {
+            document.addEventListener('keydown', handleEscape);
+        }
+
+        return () => {
+            document.removeEventListener('keydown', handleEscape);
+        };
+    }, [props.login, isLoading]);
+
+    if (!props.login) return null;
 
     return (
-        <div>
-            <Modal isOpen={props.login} toggle={toggleModal} className="login" unmountOnClose={unmountOnClose}>
-                <ModalHeader toggle={toggleModal}>Login</ModalHeader>
-                <ModalBody>
-                    <Form onSubmit={handleLogin} className="row">
-                        <FormGroup>
-                        <Label for="email" className="col-5 col-sm-12">Username</Label>
-                            <Input className="col-7 col-sm-12" type="text" name="username" onChange={handleChange} id="username" required={true} placeholder="Username" />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label className="col-5 col-sm-12" for="password">Password</Label>
-                            <Input className="col-7 col-sm-12" type="password" name="password" onChange={handleChange} id="password" required={true} placeholder="password" />
-                        </FormGroup>
-                        <FormGroup>
-                            <Button type="submit" value="submit" className="c-button-up small">Login</Button>{' '}
-                        </FormGroup>
-                    </Form>
-                </ModalBody>
-            </Modal>
+        <div className="login-modal">
+            <div className="login-card">
+                <button 
+                    className="close-button" 
+                    onClick={toggleModal}
+                    aria-label="Close login modal"
+                >
+                    ×
+                </button>
+                
+                <div className="login-header">
+                    <h2 className="login-title">Welcome back</h2>
+                    <p className="login-subtitle">Sign in to your account to continue</p>
+                </div>
+
+                <form onSubmit={handleLogin}>
+                    <div className="form-group">
+                        <label className="form-label" htmlFor="username">
+                            Username
+                        </label>
+                        <input 
+                            className="form-control" 
+                            type="text" 
+                            name="username" 
+                            onChange={handleChange} 
+                            id="username" 
+                            required 
+                            placeholder="Enter your username"
+                            autoComplete="username"
+                        />
+                    </div>
+                    
+                    <div className="form-group">
+                        <label className="form-label" htmlFor="password">
+                            Password
+                        </label>
+                        <input 
+                            className="form-control" 
+                            type="password" 
+                            name="password" 
+                            onChange={handleChange} 
+                            id="password" 
+                            required 
+                            placeholder="Enter your password"
+                            autoComplete="current-password"
+                        />
+                    </div>
+
+                    {props.auth?.errMess && (
+                        <div className="error-message">
+                            Invalid credentials. Please try again.
+                        </div>
+                    )}
+                    
+                    <button 
+                        type="submit" 
+                        className="submit-button"
+                        disabled={isLoading}
+                    >
+                        {isLoading ? (
+                            <>
+                                <span className="spinner"></span>
+                                Signing in...
+                            </>
+                        ) : (
+                            'Sign in'
+                        )}
+                    </button>
+                </form>
+
+                <div className="form-footer">
+                    <a href="#" className="form-link">
+                        Forgot your password?
+                    </a>
+                </div>
+            </div>
         </div>
     )
 }

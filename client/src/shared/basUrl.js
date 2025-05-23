@@ -1,1 +1,1 @@
-export const baseUrl = 'https://shub-meet-api.herokuapp.com/';
+export const baseUrl = 'http://localhost:4001/';

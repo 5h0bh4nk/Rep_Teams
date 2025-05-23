@@ -41,9 +41,13 @@
   },
   "scripts": {
     "test": "test",
-    "start": "react-scripts start",
-    "build": "react-scripts build"
+    "start": "NODE_OPTIONS='--openssl-legacy-provider' PORT=8000 react-scripts start",
+    "start:dev": "NODE_OPTIONS='--openssl-legacy-provider' NODE_ENV=dev PORT=8000 react-scripts start",
+    "build": "NODE_OPTIONS='--openssl-legacy-provider' react-scripts build"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "engines": {
+    "node": ">=12.16.3"
+  }
 }

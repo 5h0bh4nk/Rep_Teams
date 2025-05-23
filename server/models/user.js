@@ -7,6 +7,11 @@ var User = new Schema({
         type: String,
         default:''
     },
+    phone: {
+        type: String,
+        default: null,
+        sparse: true
+    },
     // to intergrate facebook auth2.O
     facebookId: String,
     admin: {

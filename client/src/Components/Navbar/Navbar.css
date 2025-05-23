@@ -1,3 +1,53 @@
+/* Brand container styling */
+.brand-container {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    text-decoration: none !important;
+    color: #6264a7 !important;
+}
+
+.brand-container:hover {
+    text-decoration: none !important;
+    color: #5258a3 !important;
+}
+
+.brand-logo {
+    height: 32px;
+    width: 32px;
+    object-fit: contain;
+}
+
+.brand-text {
+    font-size: 20px;
+    font-weight: 700;
+    color: #6264a7;
+    margin: 0;
+}
+
+/* Responsive brand styling */
+@media (max-width: 768px) {
+    .brand-logo {
+        height: 28px;
+        width: 28px;
+    }
+    
+    .brand-text {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .brand-logo {
+        height: 24px;
+        width: 24px;
+    }
+    
+    .brand-text {
+        font-size: 16px;
+    }
+}
+
 /* Icon 1 */
 
 .animated-icon1{

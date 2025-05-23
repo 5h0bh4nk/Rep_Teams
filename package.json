@@ -16,6 +16,7 @@
 		"emoji-picker-react": "^3.4.8",
 		"express": "^4.17.1",
 		"faker": "^4.1.0",
+		"http-errors": "^2.0.0",
 		"moment": "^2.29.1",
 		"mongoose": "^5.13.0",
 		"nodemon": "^2.0.2",
@@ -46,10 +47,12 @@
 		"xss": "^1.0.8"
 	},
 	"scripts": {
-		"dev": "concurrently -n 'server,client' -c 'red,green'  \"nodemon app.js\" \"cd client && SET NODE_ENV=dev PORT=8000 react-scripts start\"",
+		"server": "nodemon app.js",
+		"client": "cd client && npm run start",
+		"client:dev": "cd client && npm run start:dev",
+		"dev": "concurrently -n 'server,client' -c 'red,green' \"npm run server\" \"npm run client:dev\"",
 		"start": "NODE_ENV=production nodemon app.js",
-		"client": "react-scripts start",
-		"build": "cd client && react-scripts build",
+		"build": "cd client && NODE_OPTIONS='--openssl-legacy-provider' react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
 	},
@@ -72,6 +75,6 @@
 		"shave": "^2.5.10"
 	},
 	"engines": {
-		"node": "12.16.3"
+		"node": ">=12.16.3"
 	}
 }

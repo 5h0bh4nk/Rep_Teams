@@ -18,12 +18,13 @@ router.get('/',cors.corsWithOptions,  authenticate.verifyUser, authenticate.veri
     .catch((err)=>next(err));
 });
 
-router.post('/signup', function(req,res,next){
+router.post('/signup', cors.corsWithOptions, function(req,res,next){
   User.register(new User({username: req.body.username}), req.body.password, (err,user)=>{
     if(err){
-        res.statusCode=200;
+        res.statusCode=500;
         res.setHeader('Content-type','application/json');
         res.json({err: err});
+        return;
     }
     else{
       if(req.body.name)
@@ -37,12 +38,11 @@ router.post('/signup', function(req,res,next){
           return;
         }
         passport.authenticate('local')(req, res, ()=> {
-        
-        res.statusCode=200;
-        res.setHeader('Content-type','application/json');
-        res.json({status: 'Registration successfull !!',success: true});
+          res.statusCode=200;
+          res.setHeader('Content-type','application/json');
+          res.json({status: 'Registration successfull !!',success: true});
+        });
       });
-    });
     }
   });
 });
@@ -57,20 +57,21 @@ router.post('/login',cors.corsWithOptions, (req, res, next)=>{
       res.statusCode=401;
       res.setHeader('Content-type','application/json');
       res.json({success: false, status: 'Login Unsuccesfull', err:info});
+      return;
     }
 
     req.logIn(user, (err)=>{
       if(err){
         res.statusCode=401;
         res.setHeader('Content-type','application/json');
-        res.json({success: false, status: 'Login Unsuccesfull', err:info});
+        res.json({success: false, status: 'Login Unsuccesfull', err: 'Authentication failed'});
+        return;
       }
 
       var token = authenticate.getToken({_id: req.user._id});
       res.statusCode=200;
       res.setHeader('Content-type','application/json');
-      res.json({status: 'Succesully logged in !!',success: true, token: token});
-      return res.redirect('/dashboard');
+      res.json({status: 'Successfully logged in !!',success: true, token: token});
     });
   }) (req,res,next);
 });

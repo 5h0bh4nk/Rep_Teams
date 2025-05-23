@@ -5,7 +5,7 @@ import './Header.css'
 import { Button } from 'reactstrap'
 import { NavLink } from 'react-router-dom'
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem } from 'reactstrap'
-import logo from '../../shared/images/logo-white.png'
+import mslogo from '../../shared/images/mslogo.svg'
 
 function Header(props) {
 	const [isOpen, setIsOpen] = useState(false)
@@ -22,8 +22,9 @@ function Header(props) {
 		<div className='app-header-bar mb-3'>
 			<Navbar light expand='md'>
 				<div className='container-fluid'>
-					<NavbarBrand href='/home'>
-						<img src={logo} alt='MS logo' />
+					<NavbarBrand href='/home' className='brand-container'>
+						<img src={mslogo} alt='Shubh Meet Logo' className='brand-logo' />
+						<span className='brand-text'>Shubh Meet</span>
 					</NavbarBrand>
 					<NavbarToggler className='first-Button' onClick={toggle}>
 						<div className={cname}>

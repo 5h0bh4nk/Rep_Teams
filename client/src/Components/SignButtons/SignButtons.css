@@ -1,54 +1,254 @@
+/* Microsoft Teams-inspired modern button styling */
+
+.c-group.links {
+    margin-top: 32px;
+}
+
+/* Primary Sign In Button */
 .c-button-up {
-    background: #4b53bc !important;
-    color: #fff !important;
-    border-color: #fff;
-    min-width: 230px;
-    padding: 12px;
-    transition-property: background-color,border-color,color;
-    white-space: normal;
-    margin-top: 25px;
-    text-align: center;
-    line-height: 1;
-    font-weight: 600;
-    box-shadow: 0 4px 8px 0 transparent;
-    cursor: pointer;
-    overflow: hidden;
-    transition: all .2s ease-in-out;
-    vertical-align: bottom;
+    background: #6264a7 !important;
+    border: none !important;
+    color: #ffffff !important;
+    padding: 12px 32px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    text-transform: none !important;
+    min-width: 160px !important;
+    margin-bottom: 16px !important;
+    box-shadow: 0 4px 12px rgba(98, 100, 167, 0.25) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-decoration: none !important;
 }
 
+.c-button-up:hover {
+    background: #5258a3 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(98, 100, 167, 0.35) !important;
+    color: #ffffff !important;
+}
 
-.c-button-in{
-    font-size: 15px;
-    position: relative;
-    border: 4px solid #4b53bc;
-    outline: 0;
-    max-width: 374px;
-    padding: 9px 12px 10px 10px;
-    margin-top: 12px;
+.c-button-up:active {
+    transform: translateY(0) !important;
+    box-shadow: 0 2px 8px rgba(98, 100, 167, 0.25) !important;
+}
+
+.c-button-up:focus {
+    outline: 2px solid #ffffff !important;
+    outline-offset: 2px !important;
+}
+
+/* Secondary Sign Up Button */
+.c-button-in {
+    background: transparent !important;
+    border: 2px solid #6264a7 !important;
+    color: #6264a7 !important;
+    padding: 10px 32px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    text-transform: none !important;
+    min-width: 160px !important;
+    margin-bottom: 16px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-decoration: none !important;
+    text-shadow: 0 1px 2px rgba(255,255,255,0.3) !important;
+}
+
+.c-button-in:hover {
+    background: #6264a7 !important;
+    color: #ffffff !important;
+    border-color: #6264a7 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(98, 100, 167, 0.3) !important;
+}
+
+.c-button-in:active {
+    transform: translateY(0) !important;
+}
+
+.c-button-in:focus {
+    outline: 2px solid #6264a7 !important;
+    outline-offset: 2px !important;
+}
+
+/* Logout Button */
+.btn-outline-secondary {
+    background: transparent !important;
+    border: 2px solid #6264a7 !important;
+    color: #6264a7 !important;
+    padding: 10px 24px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    text-transform: none !important;
+    margin-right: 12px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-decoration: none !important;
+}
+
+.btn-outline-secondary:hover {
+    background: #6264a7 !important;
+    color: #ffffff !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(98, 100, 167, 0.25) !important;
+}
+
+/* Dashboard Button */
+.btn[style*="backgroundColor"] {
+    background: #107c10 !important;
+    border: none !important;
+    color: #ffffff !important;
+    padding: 10px 24px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    text-transform: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-decoration: none !important;
+    box-shadow: 0 4px 12px rgba(16, 124, 16, 0.25) !important;
+}
+
+.btn[style*="backgroundColor"]:hover {
+    background: #0e6e0e !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 16px rgba(16, 124, 16, 0.35) !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+}
+
+/* Success Message */
+.text-success {
+    background: #ffffff !important;
+    color: #107c10 !important;
+    padding: 20px !important;
+    border-radius: 12px !important;
+    margin: 20px 0 !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+    border-left: 4px solid #107c10 !important;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fff8 100%) !important;
+}
+
+.text-success span {
+    font-weight: 700 !important;
+    color: #0e6e0e !important;
+}
+
+/* Error Display */
+.errorDisplay {
+    background: #fdf2f2 !important;
+    color: #d13438 !important;
+    padding: 16px 20px !important;
+    border-radius: 8px !important;
+    border-left: 4px solid #d13438 !important;
+    margin: 16px 0 !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    display: block !important;
+}
+
+/* Hide empty error display */
+.errorDisplay:empty {
+    display: none !important;
+}
+
+/* Success Display */
+.successDisplay {
+    background: #dff6dd !important;
+    color: #107c10 !important;
+    padding: 16px 20px !important;
+    border-radius: 8px !important;
+    border-left: 4px solid #107c10 !important;
+    margin: 16px 0 !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    display: block !important;
+}
+
+/* Hide empty success display */
+.successDisplay:empty {
+    display: none !important;
+}
+
+/* Loading Spinner */
+.fa-spinner {
+    margin-left: 8px !important;
+}
+
+/* Icon Spacing */
+.fa-sign-out {
+    margin-right: 8px !important;
+}
+
+/* Button Container */
+.links {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+}
+
+@media (max-width: 768px) {
+    .links {
+        align-items: center !important;
+        text-align: center !important;
+    }
+    
+    .c-button-up,
+    .c-button-in {
+        width: 200px !important;
+        margin-bottom: 16px !important;
+    }
+    
+    .text-success {
+        text-align: center !important;
+        margin: 20px 16px !important;
+    }
+}
+
+/* Hover effects for all interactive elements */
+.c-group.links > div > div {
     margin-bottom: 12px;
-    display: inline-block;
-    text-align: center;
-    line-height: 1;
-    font-weight: 600;
-    box-shadow: 0 4px 8px 0 transparent;
-    cursor: pointer;
-    overflow: hidden;
-    vertical-align: bottom;
-    background: #fff !important;
-    color: #4b53bc !important;
-    min-width: 230px;
-    transition-property: background-color,border-color,color;
-    white-space: normal;
 }
 
-.errorDisplay{
-    padding: auto;
-    margin: 10px;
-    color: red;
+/* Modern focus states */
+button:focus,
+.btn:focus {
+    box-shadow: 0 0 0 3px rgba(98, 100, 167, 0.3) !important;
+    outline: none !important;
 }
 
-.successDisplay{
-    color: green;
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    .c-button-up,
+    .c-button-in,
+    .btn-outline-secondary,
+    .btn[style*="backgroundColor"] {
+        transition: none !important;
+    }
+    
+    .c-button-up:hover,
+    .c-button-in:hover,
+    .btn-outline-secondary:hover,
+    .btn[style*="backgroundColor"]:hover {
+        transform: none !important;
+    }
 }
 

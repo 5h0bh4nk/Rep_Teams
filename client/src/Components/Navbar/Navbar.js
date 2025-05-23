@@ -20,8 +20,9 @@ function NavbarMain(props) {
 			<section className='mb-3'>
 				<Navbar color='light' light expand='md'>
 					<div className='container-fluid'>
-						<NavbarBrand href='/home'>
-							{/* <img src={mslogo} alt='MS logo' /> */}
+						<NavbarBrand href='/home' className='brand-container'>
+							<img src={mslogo} alt='Shubh Meet Logo' className='brand-logo' />
+							<span className='brand-text'>Shubh Meet</span>
 						</NavbarBrand>
 						<NavbarToggler className='first-Button' onClick={toggle}>
 							<div className={cname}>
