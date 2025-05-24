@@ -34,6 +34,7 @@ var io = require('socket.io')(server, {
 			"http://localhost:3000", 
 			"http://192.168.1.9:8000", 
 			"http://192.168.1.9:3000",
+			"https://shubhankteams.netlify.app",
 			process.env.FRONTEND_URL
 		].filter(Boolean),
 		methods: ["GET", "POST"],
