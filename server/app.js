@@ -66,14 +66,6 @@ app.use(cors({
 }));
 app.use(bodyParser.json())
 
-// for serving production build (if needed)
-if(process.env.NODE_ENV==='production'){
-	app.use(express.static(path.join(__dirname, "../client/build")))
-	app.get("*", (req, res) => {
-		res.sendFile(path.join(__dirname, "../client/build/index.html"))
-	})
-}
-
 // preventing xss attacks / vulnerability tag
 const sanitizeString = (str) => {
 	return xss(str)
